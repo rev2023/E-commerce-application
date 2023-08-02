@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vector_graphics/vector_graphics.dart';
 
 import 'home_screen.dart';
 
@@ -16,12 +15,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
-    // Add any logic you need here, such as initializing data or performing network requests.
-
     // Simulate a delay to show the splash screen for a few seconds.
     Future.delayed(Duration(seconds: 2), () {
       // After the delay, navigate to the home screen
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     });
   }
   @override
