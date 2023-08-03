@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/widgets/brand_icon.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -127,36 +128,11 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: const BoxDecoration(
-                            color: AppColors.nikeOrange,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child:
-                            SvgPicture.asset('lib/assets/images/nike.svg'),
-                          ),
-                        ),
+                        child: BrandIcon(image: 'lib/assets/images/nike.svg', onTap: (){}, backgroundColor: AppColors.nikeOrange),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 30),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            color: AppColors.pumaRed,
-                            borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SvgPicture.asset(
-                                'lib/assets/images/puma-white.svg'),
-                          ),
-                        ),
+                        child: BrandIcon(image: 'lib/assets/images/puma-white.svg', onTap: (){}, backgroundColor: AppColors.pumaRed)
                       ),
                     ],
                   ),
