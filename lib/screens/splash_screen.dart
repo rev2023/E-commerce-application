@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Simulate a delay to show the splash screen for a few seconds.
     Future.delayed(Duration(seconds: 2), () {
       // After the delay, navigate to the home screen
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  HomeScreen()));
     });
   }
   @override
