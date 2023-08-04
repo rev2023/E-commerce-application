@@ -6,9 +6,8 @@ class BrandIcon extends StatelessWidget {
   final double iconWidth = 60;
   final String image;
   final Color backgroundColor;
-  final VoidCallback onTap;
 
-  BrandIcon({super.key, required this.image, required this.onTap, required this.backgroundColor,});
+  BrandIcon({super.key, required this.image,  required this.backgroundColor,});
 
   @override
   Widget build(BuildContext context) {
