@@ -1,6 +1,6 @@
 import 'package:e_commerce_application/repository/product_repository.dart';
 import 'package:flutter/cupertino.dart';
-import '../models/product.dart';
+import 'package:e_commerce_application/models/product.dart';
 
 class HomeScreenProvider extends ChangeNotifier {
   ProductRepository productRepository = ProductRepository();

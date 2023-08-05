@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import 'package:e_commerce_application/styles/app_colors.dart';
 import 'package:e_commerce_application/provider/home_screen_provider.dart';
 import 'package:e_commerce_application/widgets/brand_icon.dart';
@@ -103,7 +101,6 @@ class HomeScreen extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   homeScreenProvider.filterPuma();
-                                  print(homeScreenProvider.productList.length);
                                 },
                                 child: BrandIcon(
                                   image: 'lib/assets/images/puma-white.svg',
@@ -128,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                         } else {
                           // Build a grid view with two columns for each product once the data is available
                           return Padding(
-                            padding: const EdgeInsets.only(top: 60.0),
+                            padding: const EdgeInsets.only(top: 65.0),
                             child: GridView.builder(
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
@@ -141,7 +138,10 @@ class HomeScreen extends StatelessWidget {
                               itemCount: homeScreenProvider.productList.length,
                               itemBuilder: (context, index) {
                                 final product = homeScreenProvider.productList[index];
-                                return ProductHolder(product: product);
+                                return Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: ProductHolder(product: product),
+                                );
                               },
                             ),
                           );
