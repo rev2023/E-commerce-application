@@ -23,7 +23,7 @@ class HomeScreenProvider extends ChangeNotifier {
   }
 
   void filterNike() async {
-    await fetchData(); // Wait for the data to be fetched completely
+    await fetchData();
     productList.removeWhere((product) => product.brandName != 'Nike');
     notifyListeners();
   }

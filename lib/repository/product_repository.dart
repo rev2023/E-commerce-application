@@ -4,7 +4,7 @@ import '../models/product.dart';
 
 class ProductRepository{
   
-ApiService api = ApiService('https://s3-eu-west-1.amazonaws.com/api.themeshplatform.com/products.json');
+ApiService api = ApiService(Uri.parse('https://s3-eu-west-1.amazonaws.com/api.themeshplatform.com/products.json'));
 
 Future<ProductList> fetchData() async {
   var response = await  api.getResponse();

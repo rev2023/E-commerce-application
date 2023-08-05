@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../styles/app_colors.dart';
-import '../provider/home_screen_provider.dart';
-import '../widgets/brand_icon.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/product_holder.dart';
-import '../widgets/search_bar.dart';
+import 'package:e_commerce_application/styles/app_colors.dart';
+import 'package:e_commerce_application/provider/home_screen_provider.dart';
+import 'package:e_commerce_application/widgets/brand_icon.dart';
+import 'package:e_commerce_application/widgets/custom_app_bar.dart';
+import 'package:e_commerce_application/widgets/product_holder.dart';
+import 'package:e_commerce_application/widgets/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: 16.0),
                 child: SizedBox(
-                  height: 90,
+                  height: 92,
                   child: SearchBar(),
                 ),
               ),
