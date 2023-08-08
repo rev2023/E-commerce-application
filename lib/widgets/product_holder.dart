@@ -7,55 +7,54 @@ class ProductHolder extends StatelessWidget {
 
   const ProductHolder({Key? key, required this.product}) : super(key: key);
 
-  // Method used to generate the image widget instead of directly using the image widget
-  // This is done to deal with the HTTP exception where the connection is closed before the complete header is received
+  // Method used to generate the image widget with error handling
   Widget displayImage(String uri, BuildContext context) {
     return FutureBuilder<void>(
       future: precacheImage(NetworkImage(uri), context),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            print('Error loading image: ${snapshot.error}');
-            return const Placeholder();
-          } else {
-            return Image.network(uri);
-          }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('');
+        } else if (snapshot.hasError) {
+          return const Icon(Icons.error);
         } else {
-          return Text('');
+          return Image.network(uri, width: 220, height: 120, fit: BoxFit.cover);
         }
       },
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      height: 180,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(40)),
+        borderRadius: BorderRadius.only(bottomRight:Radius.circular(40), bottomLeft:Radius.circular(40) ),
       ),
       child: Column(
         children: [
-          displayImage(product.mainImage, context),
-          Column(
+          const SizedBox(height: 20),
+          Container(
+            width: 220,
+            height: 120,
+            child: displayImage(product.mainImage, context),
+          ),
+          const SizedBox(height: 5),
+          Align(
+            child: Text(product.name, textAlign: TextAlign.center),
+          ),
+          const SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Align(
-                child: Text(product.name, textAlign: TextAlign.center,),
+              Text(
+                cSymbol(product.price['currency']),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(cSymbol(product.price['currency']), style: const TextStyle(fontWeight: FontWeight.bold)),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: Text(product.price['amount'], style: const TextStyle(fontWeight: FontWeight.bold)),
-                    ),
-                  ],
-                ),
+              const SizedBox(width: 3),
+              Text(
+                product.price['amount'],
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           ),

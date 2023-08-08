@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -36,8 +38,11 @@ class CustomAppBar extends StatelessWidget {
                 child: SizedBox(
                   height: 90,
                   width: 250,
-                  child: SvgPicture.asset(
-                    'lib/assets/images/logo.svg',
+                  child: GestureDetector(
+                    onTap:(){ context.router.push(HomeRoute());},
+                    child: SvgPicture.asset(
+                      'lib/assets/images/logo.svg',
+                    ),
                   ),
                 ),
               ),

@@ -1,6 +1,11 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
+import 'package:provider/provider.dart';
+
 
 @override
   class SearchBar extends StatelessWidget {
@@ -9,10 +14,14 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
     @override
     Widget build(BuildContext context) {
       final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+      final searchScreenProvider = Provider.of<SearchScreenProvider>(context);
+
 
       return Padding(
         padding: const EdgeInsets.only(bottom: 0),
         child: FloatingSearchBar(
+          leadingActions: [GestureDetector(onTap:() {context.router.push(HomeRoute());},child: const Icon(Icons.arrow_back_outlined)),],
+          automaticallyImplyBackButton: false,
           automaticallyImplyDrawerHamburger: false,
           backdropColor: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -27,6 +36,13 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
           debounceDelay: const Duration(milliseconds: 500),
           onQueryChanged: (query) {
             // Call your model, bloc, controller here.
+          },
+          onSubmitted: (query){
+            if(query != '') {
+              searchScreenProvider.fetchData(query);
+              context.router.push(const SearchRoute());
+            }
+
           },
           // Specify a custom transition to be used for
           // animating between opened and closed stated.

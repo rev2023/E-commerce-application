@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
@@ -6,17 +7,21 @@ import 'package:e_commerce_application/widgets/brand_icon.dart';
 import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
+import 'package:e_commerce_application/provider/search_screen_provider.dart';
 
+@RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  HomeScreen({super.key});
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Wrap the HomeScreen with ChangeNotifierProvider and provide the HomeScreenProvider instance.
-    return ChangeNotifierProvider(
-      create: (context) => HomeScreenProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
+      ],
       child: Scaffold(
         key: _scaffoldKey,
         drawer: const Drawer(),
@@ -59,52 +64,91 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Consumer<HomeScreenProvider>(
                       builder: (context, homeScreenProvider, _) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        return Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: GestureDetector(
-                                  child: Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.black87),
-                                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(top: 8.0),
-                                      child: Center(
-                                        child: Text(
-                                          'All',
-                                          style: TextStyle(color: Colors.black87, fontSize: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 30),
+                                  child: GestureDetector(
+                                    child: Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(color: Colors.black87),
+                                        borderRadius:
+                                        const BorderRadius.all(Radius.circular(20)),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.only(top: 8.0),
+                                        child: Center(
+                                          child: Text(
+                                            'All',
+                                            style: TextStyle(
+                                                color: Colors.black87, fontSize: 20),
+                                          ),
                                         ),
                                       ),
                                     ),
+                                    onTap: () {
+                                      homeScreenProvider.fetchData();
+                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                    },
                                   ),
-                                  onTap: (){homeScreenProvider.fetchData();}
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: GestureDetector(
-                                  child: BrandIcon(
-                                    image: 'lib/assets/images/nike.svg',
-                                    backgroundColor: AppColors.nikeOrange,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 30),
+                                  child: GestureDetector(
+                                    child: BrandIcon(
+                                      image: 'lib/assets/images/nike.svg',
+                                      backgroundColor: AppColors.nikeOrange,
+                                    ),
+                                    onTap: () {
+                                      homeScreenProvider.filterNike();
+                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                    },
                                   ),
-                                  onTap: (){homeScreenProvider.filterNike();}
-                              ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 30),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      homeScreenProvider.filterPuma();
+                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                    },
+                                    child: BrandIcon(
+                                      image: 'lib/assets/images/puma-white.svg',
+                                      backgroundColor: AppColors.pumaRed,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 30),
-                              child: GestureDetector(
-                                onTap: () {
-                                  homeScreenProvider.filterPuma();
-                                },
-                                child: BrandIcon(
-                                  image: 'lib/assets/images/puma-white.svg',
-                                  backgroundColor: AppColors.pumaRed,
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 16.0),
+                                child: DropdownButton<String>(
+                                  alignment: Alignment.centerRight,
+                                  value: homeScreenProvider.selectedSortingOption,
+                                  onChanged: (newValue) {
+                                    homeScreenProvider.selectedSortingOption = newValue!;
+                                    homeScreenProvider.handleSortingOption(newValue);
+                                  },
+                                  items: <String>[
+                                    'Regular',
+                                    'Sort A -Z ',
+                                    'Sort Z - A ',
+                                    'Highest to Lowest price',
+                                    'Lowest to Highest price'
+                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
                             ),
@@ -113,7 +157,7 @@ class HomeScreen extends StatelessWidget {
                       },
                     ),
                     Consumer<HomeScreenProvider>(
-                      builder: (context, HomeScreenProvider homeScreenProvider, _) {
+                      builder: (context, homeScreenProvider, _) {
                         if (homeScreenProvider.productList.isEmpty) {
                           // Show a loading indicator while data is being fetched
                           return const Center(
@@ -125,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                         } else {
                           // Build a grid view with two columns for each product once the data is available
                           return Padding(
-                            padding: const EdgeInsets.only(top: 65.0),
+                            padding: const EdgeInsets.only(top: 45.0),
                             child: GridView.builder(
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),

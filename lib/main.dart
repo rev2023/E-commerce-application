@@ -1,24 +1,35 @@
+import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:e_commerce_application/router/app_router.dart';
 import 'package:e_commerce_application/screens/splash_screen.dart';
+import 'package:e_commerce_application/services/services_configuration.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+   setupDependencies();
+    runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+    final appRouter = AppRouter();
 
-        primarySwatch: Colors.blue,
+    return MultiProvider( // Wrap your MaterialApp.router with MultiProvider
+      providers: [
+        ChangeNotifierProvider(create: (context) => SearchScreenProvider()), // Provide the SearchScreenProvider
+        // Add more providers if needed
+      ],
+      child: MaterialApp.router(
+        routerConfig: appRouter.config(),
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
       ),
-      home: const SplashScreen(),
     );
   }
 }

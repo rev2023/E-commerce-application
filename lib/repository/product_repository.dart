@@ -1,15 +1,15 @@
 import 'package:e_commerce_application/services/api/api_service.dart';
+import 'package:e_commerce_application/models/product.dart';
+import 'package:e_commerce_application/services/services_configuration.dart';
 
-import '../models/product.dart';
+class ProductRepository {
 
-class ProductRepository{
-  
-ApiService api = ApiService(Uri.parse('https://s3-eu-west-1.amazonaws.com/api.themeshplatform.com/products.json'));
+  final apiService = getIt<ApiService>();
 
-Future<ProductList> fetchData() async {
-  var response = await  api.getResponse();
-  return ProductList.fromJson(response);
+  Future<ProductList> fetchData() async {
+    var response = await apiService.getResponse();
+    return ProductList.fromJson(response);
+  }
 }
 
   
-}
