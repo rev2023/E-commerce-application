@@ -8,9 +8,6 @@ class SearchScreenProvider extends ChangeNotifier {
   List<Product> productList = [];
   bool noResult = false;
 
-
-
-
   Future<void> fetchData(String searchQuery) async {
     noResult = false;
     productList.clear();

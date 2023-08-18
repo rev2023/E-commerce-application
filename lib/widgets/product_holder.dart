@@ -4,7 +4,6 @@ import 'package:currency_symbols/currency_symbols.dart';
 
 class ProductHolder extends StatelessWidget {
   final Product product;
-
   const ProductHolder({Key? key, required this.product}) : super(key: key);
 
   // Method used to generate the image widget with error handling
@@ -22,7 +21,6 @@ class ProductHolder extends StatelessWidget {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

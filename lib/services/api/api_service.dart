@@ -1,6 +1,4 @@
-
 import 'package:dio/dio.dart';
-
 
 class ApiService{
   Uri apiEndpoint;
@@ -15,9 +13,5 @@ class ApiService{
      else {
        return response.statusMessage;
      }
-
   }
-
-
-
 }

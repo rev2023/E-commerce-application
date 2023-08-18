@@ -6,16 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:provider/provider.dart';
 
-
 @override
   class SearchBar extends StatelessWidget {
     const SearchBar({super.key});
-
     @override
     Widget build(BuildContext context) {
       final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
       final searchScreenProvider = Provider.of<SearchScreenProvider>(context);
-
 
       return Padding(
         padding: const EdgeInsets.only(bottom: 0),

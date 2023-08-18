@@ -1,5 +1,4 @@
 class ProductList{
-
   List<Product> productList;
 
   ProductList(this.productList);
@@ -9,7 +8,6 @@ class ProductList{
     return ProductList(productsList);
   }
 }
-
 
 class Product {
   final String id;
@@ -22,10 +20,6 @@ class Product {
   final String color;
   final String stockStatus;
   final String description;
-
-
-
-
 
   Product({
     required this.name,
@@ -41,8 +35,6 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-
-
     return Product(
       name: json['name'] as String,
       brandName: json['brandName'] as String,
@@ -54,8 +46,6 @@ class Product {
         sizes: json['sizes'] as List<dynamic>,
         description: json['description'] as String,
       stockStatus: json['stockStatus'] as String,
-
-
     );
   }
 }

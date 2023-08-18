@@ -43,19 +43,19 @@ class HomeScreenProvider extends ChangeNotifier {
   void handleSortingOption(newValue) {
     switch (newValue) {
       case 'Sort A - Z':
-        sortAToZ();
+        sortAscendingAlphabetically();
         notifyListeners();
         break;
       case 'Sort Z - A':
-        sortZToA();
+        sortDescendingAlphabetically();
         notifyListeners();
         break;
       case 'Highest to Lowest price':
-        sortFromPriceHighestToLowest();
+        sortPriceDescending();
         notifyListeners();
         break;
       case 'Lowest to Highest price':
-        sortFromPriceLowestToHighest();
+        sortPriceAscending();
         notifyListeners();
         break;
       default:
@@ -63,7 +63,7 @@ class HomeScreenProvider extends ChangeNotifier {
     }
   }
 
-  void sortFromPriceHighestToLowest() {
+  void sortPriceDescending() {
     for (int j = 1; j < productList.length; j++) {
       double key = double.parse(productList[j].price['amount']);
       Product temp = productList[j];
@@ -78,18 +78,18 @@ class HomeScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void sortFromPriceLowestToHighest() {
+  void sortPriceAscending() {
     productList.sort((a, b) =>
         double.parse(a.price['amount']).compareTo(double.parse(b.price['amount'])));
     notifyListeners();
   }
 
-  void sortAToZ() {
+  void sortAscendingAlphabetically() {
     productList.sort((a, b) => a.name.compareTo(b.name));
     notifyListeners();
   }
 
-  void sortZToA() {
+  void sortDescendingAlphabetically() {
     productList.sort((a, b) => b.name.compareTo(a.name));
     notifyListeners();
   }

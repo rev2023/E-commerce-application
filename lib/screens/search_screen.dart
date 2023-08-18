@@ -1,14 +1,11 @@
 import 'package:auto_route/annotations.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../provider/home_screen_provider.dart';
-import '../styles/app_colors.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/product_holder.dart';
-import '../widgets/search_bar.dart';
+import 'package:e_commerce_application/styles/app_colors.dart';
+import 'package:e_commerce_application/widgets/custom_app_bar.dart';
+import 'package:e_commerce_application/widgets/product_holder.dart';
+import 'package:e_commerce_application/widgets/search_bar.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
