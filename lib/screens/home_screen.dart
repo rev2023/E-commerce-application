@@ -159,6 +159,7 @@ class HomeScreen extends StatelessWidget {
                     Consumer<HomeScreenProvider>(
                       builder: (context, homeScreenProvider, _) {
                         if (homeScreenProvider.productList.isEmpty) {
+                          homeScreenProvider.fetchData();
                           // Show a loading indicator while data is being fetched
                           return const Center(
                             child: Padding(

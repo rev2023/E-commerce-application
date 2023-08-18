@@ -9,7 +9,6 @@ class HomeScreenProvider extends ChangeNotifier {
   String _selectedOption = 'Regular';
 
   HomeScreenProvider() {
-    fetchData();
   }
 
   String get selectedSortingOption => _selectedOption;
