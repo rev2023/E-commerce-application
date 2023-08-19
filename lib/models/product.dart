@@ -1,3 +1,5 @@
+import 'package:e_commerce_application/models/product_price.dart';
+
 class ProductList{
   List<Product> productList;
 
@@ -15,7 +17,7 @@ class Product {
   final String name;
   final String brandName;
   final String mainImage;
-  final Map<String, dynamic> price;
+  final ProductPrice price;
   final List<dynamic> sizes;
   final String color;
   final String stockStatus;
@@ -42,7 +44,7 @@ class Product {
       mainImage: json['mainImage'] as String,
       color: json['colour'] as String,
       SKU: json['SKU'] as String,
-      price: json['price'] as Map<String,dynamic>,
+      price: ProductPrice.fromJson(json['price']),
         sizes: json['sizes'] as List<dynamic>,
         description: json['description'] as String,
       stockStatus: json['stockStatus'] as String,
