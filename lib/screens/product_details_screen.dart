@@ -14,7 +14,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productDetailsProvider =
-        Provider.of<ProductDetailsScreenProvider>(context, listen: false);
+        Provider.of<ProductDetailsScreenProvider>(context);
     if (productDetailsProvider.allSizes.isEmpty) {
       productDetailsProvider.populateSizes();
     }
