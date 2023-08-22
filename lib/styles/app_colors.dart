@@ -8,4 +8,6 @@ class AppColors{
   static const Color nikeOrange = Color(0xFFFF6F00);
   static const Color pumaRed =  Color(0xFFE11C2B);
   static const Color grey =  Colors.grey;
+  static const Color green =  Colors.green;
+  static const Color offWhite = Colors.white60;
 }

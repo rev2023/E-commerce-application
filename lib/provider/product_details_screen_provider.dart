@@ -8,7 +8,6 @@ class ProductDetailsScreenProvider extends ChangeNotifier {
   List<bool> _selectedSize = <bool>[true, false, false, false];
   get selectedSize => _selectedSize;
   set selectedSize(selectedSize){
-
     _selectedSize = selectedSize;
     notifyListeners();
   }
@@ -47,10 +46,8 @@ class ProductDetailsScreenProvider extends ChangeNotifier {
       'grey': Colors.grey,
       'blueGrey': Colors.blueGrey,
     };
-
     return colorMap[colorName.toLowerCase()] ?? Colors.black; // Default to black if color is not found
   }
-
 
   // This method populates the 'sizes' list with the sizes from the product
   void populateSizes() {
@@ -68,5 +65,4 @@ class ProductDetailsScreenProvider extends ChangeNotifier {
     // Notify listeners after the list is populated
     notifyListeners();
   }
-
 }

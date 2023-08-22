@@ -7,7 +7,6 @@ import 'package:counter_button/counter_button.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
 
 @RoutePage()
-@RoutePage()
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
 
@@ -20,7 +19,7 @@ class ProductDetailsScreen extends StatelessWidget {
     }
     return Scaffold(
       drawer: const Drawer(),
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -195,7 +194,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           child: Text(
                             productDetailsProvider.product.description,
                             style: const TextStyle(
-                                fontSize: 15, color: Colors.white60),
+                                fontSize: 15, color: AppColors.offWhite),
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -207,7 +206,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: Text(
                                 'Available Sizes',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 17),
+                                    color: AppColors.backgroundColor, fontSize: 17),
                               )),
                         )),
                         Padding(
@@ -217,7 +216,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             child: Container(
                               height: 40,
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: AppColors.backgroundColor,
                                 border:
                                     Border.all(color: Colors.black, width: 1),
                                 borderRadius: const BorderRadius.all(
@@ -265,9 +264,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                   }
                                 },
                                 count: productDetailsProvider.counterValue,
-                                countColor: Colors.black54,
-                                buttonColor: Colors.black54,
-                                progressColor: Colors.black54,
+                                countColor: AppColors.primaryColor,
+                                buttonColor: AppColors.primaryColor,
+                                progressColor: AppColors.primaryColor,
                               ),
                             ),
                           ),
@@ -286,12 +285,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(
                                         10), // Adjust the value as needed
                                   ),
-                                  backgroundColor: Colors.green,
+                                  backgroundColor: AppColors.green,
                                   // Add other styling properties here
                                 ),
                                 child: const Text(
                                   'Add to cart',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: AppColors.backgroundColor),
                                 ),
                               ),
                             ),
