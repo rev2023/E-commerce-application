@@ -44,6 +44,7 @@ dependencies:
   auto_route: ^7.7.1
   counter_button: ^1.0.1
   string_to_color: ^2.0.0
+  sqflite: ^2.2.8+4
 
 
 
