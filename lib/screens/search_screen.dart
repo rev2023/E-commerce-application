@@ -7,7 +7,6 @@ import 'package:e_commerce_application/styles/app_colors.dart';
 import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
-
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.gr.dart';
 

@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget {
     return SliverAppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.appBarColor,
       leadingWidth: double.infinity,
       leading: SizedBox(
         height: 90,

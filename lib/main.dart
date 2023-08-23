@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/provider/cart_provider.dart';
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       // Wrap your MaterialApp.router with MultiProvider
       providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => SearchScreenProvider()),
         ChangeNotifierProvider(
             create: (context) => ProductDetailsScreenProvider()),

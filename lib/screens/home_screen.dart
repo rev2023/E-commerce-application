@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/provider/cart_provider.dart';
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +11,20 @@ import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 
+import '../db/cart_db.dart';
+
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   HomeScreen({Key? key}) : super(key: key);
+  CartDatabase cart = CartDatabase.instance;
+
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
@@ -198,12 +206,15 @@ class HomeScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(15.0),
                                   child: GestureDetector(
                                       onTap: () {
+                                        cart.createEntry(product);
+                                        cartProvider.getItemsInCart();
                                         final productDetailsProvider = Provider
                                             .of<ProductDetailsScreenProvider>(
                                                 context,
                                                 listen: false);
                                         productDetailsProvider.product = product;
                                         context.router.push(const ProductDetailsRoute());
+
                                       },
                                       child: ProductHolder(product: product)),
                                 );
@@ -221,7 +232,17 @@ class HomeScreen extends StatelessWidget {
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.white,
+          currentIndex: 0,
           selectedItemColor: Colors.black87,
+          onTap: (index){
+            if(index == 1){
+              context.router.push(CartRoute());
+            }
+            else{
+              context.router.push(HomeRoute());
+            }
+
+          },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
