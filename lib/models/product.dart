@@ -27,6 +27,7 @@ class Product {
   final String description;
    num? quantity;
 
+
   Product({
     this.quantity,
     required this.name,
@@ -54,7 +55,6 @@ class Product {
     CartFields.stockStatus: stockStatus,
     CartFields.description: description,
     CartFields.quantity: quantity,
-
   };
 
   static Product fromMap(Map<String, dynamic> map) => Product(

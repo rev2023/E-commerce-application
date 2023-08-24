@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ProductDetailsScreenProvider extends ChangeNotifier {
   late Product product;
-  int _counterValue = 0;
+  int _counterValue = 1;
   List<Widget> allSizes = [];
   List<bool> _selectedSize = <bool>[true, false, false, false];
   get selectedSize => _selectedSize;

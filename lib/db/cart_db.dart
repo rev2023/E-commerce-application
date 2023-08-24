@@ -49,19 +49,29 @@ class CartDatabase {
 ''');
   }
 
-  Future<void> createEntry(Product product) async {
+  Future<void> createEntry(Product product, int quantity) async {
     final db = await database;
-    final version = await db.getVersion();
-    print('Current database version: $version');
-    await db.insert(cartTable, product.toMap(1));
+    try {
+      final existingProduct = await readEntry(int.parse(product.id));
+      final newQuantity = existingProduct.quantity! + quantity;
+      await db.update(
+        cartTable,
+        product.toMap(newQuantity),
+        where: '${CartFields.id} = ?',
+        whereArgs: [product.id],
+      );
+    }
+    catch(e) {
+      await db.insert(cartTable, product.toMap(quantity));
+    }
   }
 
-  Future<Product> readEntry(String productName) async {
+  Future<Product> readEntry(int id) async {
     final db = await database;
     final maps = await db.query(
       cartTable,
-      where: '${CartFields.brandName} = ?',
-      whereArgs: [productName],
+      where: '${CartFields.id} = ?',
+      whereArgs: [id],
     );
     if (maps.isNotEmpty) {
       print(Product.fromMap(maps.first).description);
@@ -81,19 +91,25 @@ class CartDatabase {
         stockStatus: ''); // Return a default or empty Product if not found
   }
 
-  Future<void> deleteEntry(String productName) async {
+  Future<void> deleteEntry(int id) async {
     final db = await database;
     db.delete(
       cartTable,
-      where: '${CartFields.brandName} = ?',
-      whereArgs: [productName],
+      where: '${CartFields.id} = ?',
+      whereArgs: [id],
     );
   }
+  Future<void> deleteAllEntries() async {
+    final db = await database;
+    await db.delete(cartTable);
+
+
+  }
+
 
   Future<List<Product>> readAllEntries() async {
     final db = await database;
     final maps = await db.query(cartTable);
-
     return List.generate(maps.length, (index) {
       return Product.fromMap(maps[index]);
     });

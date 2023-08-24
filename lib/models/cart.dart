@@ -14,6 +14,4 @@ class CartFields {
   static final String stockStatus = 'stockStatus';
   static final String description = 'description';
   static final String quantity = 'quantity';
-
-
 }

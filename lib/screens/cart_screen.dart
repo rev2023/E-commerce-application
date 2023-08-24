@@ -12,8 +12,8 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
-    print(cartProvider.productList.length);
+    final cartProvider = Provider.of<CartProvider>(context,);
+    cartProvider.getItemsInCart();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -24,13 +24,51 @@ class CartScreen extends StatelessWidget {
             CustomAppBar(scaffoldKey: _scaffoldKey),
           ];
         },
-        body: ListView.builder(
-          itemCount: cartProvider.productList.length, // Replace with your actual list length
-          itemBuilder: (context, index) {
-            print(cartProvider.productList.length);
-            // Replace CartItemWidget with your actual cart item widget
-            return ListTile( leading: Text(cartProvider.productList[index].name + '\n x ' + cartProvider.productList[index].quantity.toString(),style: TextStyle(color: Colors.black87),),trailing: Image.network(cartProvider.productList[index].mainImage),);
-          },
+        body: Column(
+          children: [
+            Expanded(
+              child: Container(
+                child: ListView.builder(
+                  itemCount: cartProvider.productList.length,
+                  itemBuilder: (context, index) {
+                    final product = cartProvider.productList[index];
+                    return cartProvider.productList.isEmpty? CircularProgressIndicator() : Dismissible(
+                      key: ValueKey(product.id), // Use a unique key for each item
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 16.0),
+                        child: Icon(Icons.delete, color: Colors.white),
+                      ),
+                      onDismissed: (direction) {
+                        cartProvider.productList.removeAt(index);
+                        cartProvider.delete(product);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: Text(
+                            product.name + '\n x ' + product.quantity.toString() + '\n price: ${product.price.amount}',
+                            style: TextStyle(color: Colors.black87),
+                          ),
+                          trailing: Image.network(product.mainImage),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                Text('Total: ${cartProvider.totalCost.toString()}'),
+                const SizedBox(height: 10,),
+                Container(width: 300,height: 1,color: Colors.black,),
+                const SizedBox(height: 5,),
+                ElevatedButton(onPressed: (){}, style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueGrey)), child: Text('Checkout'),)
+              ],
+            )
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

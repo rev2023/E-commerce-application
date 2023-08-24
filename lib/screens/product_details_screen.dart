@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:currency_symbols/currency_symbols.dart';
+import 'package:e_commerce_application/provider/cart_provider.dart';
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:counter_button/counter_button.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
+
+import '../db/cart_db.dart';
 
 @RoutePage()
 class ProductDetailsScreen extends StatelessWidget {
@@ -12,6 +15,9 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartDatabase cart = CartDatabase.instance;
+    final cartProvider =
+    Provider.of<CartProvider>(context);
     final productDetailsProvider =
         Provider.of<ProductDetailsScreenProvider>(context);
     if (productDetailsProvider.allSizes.isEmpty) {
@@ -232,6 +238,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                       (i) => i == index);
                                   productDetailsProvider.selectedSize =
                                       newSelectedSize;
+                                  cartProvider.size = int.parse(productDetailsProvider.product.sizes[index]);
+                                  print(cartProvider.size);
+
                                 },
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
@@ -259,7 +268,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: CounterButton(
                                 loading: false,
                                 onChange: (int val) {
-                                  if (val <= 15) {
+                                  if (val <= 15 && val > 0) {
                                     productDetailsProvider.counterValue = val;
                                   }
                                 },
@@ -279,7 +288,9 @@ class ProductDetailsScreen extends StatelessWidget {
                               height: 40,
                               width: 120,
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  cartProvider.quantity = productDetailsProvider.counterValue;
+                                  cart.createEntry(productDetailsProvider.product,cartProvider.quantity);},
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(

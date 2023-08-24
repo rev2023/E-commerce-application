@@ -11,13 +11,10 @@ import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 
-import '../db/cart_db.dart';
-
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   HomeScreen({Key? key}) : super(key: key);
-  CartDatabase cart = CartDatabase.instance;
 
 
   @override
@@ -206,8 +203,6 @@ class HomeScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(15.0),
                                   child: GestureDetector(
                                       onTap: () {
-                                        cart.createEntry(product);
-                                        cartProvider.getItemsInCart();
                                         final productDetailsProvider = Provider
                                             .of<ProductDetailsScreenProvider>(
                                                 context,
