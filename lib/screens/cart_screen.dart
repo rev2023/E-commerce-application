@@ -37,8 +37,8 @@ class CartScreen extends StatelessWidget {
                       background: Container(
                         color: Colors.red,
                         alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(right: 16.0),
-                        child: Icon(Icons.delete, color: Colors.white),
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: const Icon(Icons.delete, color: Colors.white),
                       ),
                       onDismissed: (direction) {
                         cartProvider.productList.removeAt(index);
@@ -47,9 +47,8 @@ class CartScreen extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
-                          leading: Text(
-                            product.name + '\n x ' + product.quantity.toString() + '\n price: ${product.price.amount}',
-                            style: TextStyle(color: Colors.black87),
+                          leading: Text('${product.name}  (x${product.quantity})\n size: ${product.selectedSize} \n price: ${product.price.amount}',
+                            style: const TextStyle(color: Colors.black87),
                           ),
                           trailing: Image.network(product.mainImage),
                         ),

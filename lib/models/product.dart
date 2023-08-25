@@ -5,6 +5,7 @@ import 'cart.dart';
 class ProductList {
   List<Product> productList;
 
+
   ProductList(this.productList);
 
   factory ProductList.fromJson(Map<String, dynamic> jsonData) {
@@ -15,7 +16,7 @@ class ProductList {
 }
 
 class Product {
-  final String id;
+  String id;
   final String SKU;
   final String name;
   final String brandName;
@@ -26,6 +27,8 @@ class Product {
   final String stockStatus;
   final String description;
    num? quantity;
+  String? selectedSize;
+
 
 
   Product({
@@ -40,6 +43,7 @@ class Product {
     required this.color,
     required this.description,
     required this.stockStatus,
+    this.selectedSize,
   });
 
   Map<String, dynamic> toMap(num quantity) => {
@@ -55,7 +59,12 @@ class Product {
     CartFields.stockStatus: stockStatus,
     CartFields.description: description,
     CartFields.quantity: quantity,
+    CartFields.selectedSize : selectedSize,
   };
+
+  void incrementID(){
+    id = id + '00';
+  }
 
   static Product fromMap(Map<String, dynamic> map) => Product(
     name: map[CartFields.name] as String,
@@ -70,7 +79,9 @@ class Product {
     color: map[CartFields.color] as String,
     description: map[CartFields.description] as String,
     stockStatus: map[CartFields.stockStatus] as String,
-    quantity: map[CartFields.quantity]
+    quantity: map[CartFields.quantity],
+      selectedSize : map[CartFields.selectedSize].toString()
+
   );
 
   factory Product.fromJson(Map<String, dynamic> json) {

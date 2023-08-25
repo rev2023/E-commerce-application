@@ -239,6 +239,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   productDetailsProvider.selectedSize =
                                       newSelectedSize;
                                   cartProvider.size = int.parse(productDetailsProvider.product.sizes[index]);
+                                  productDetailsProvider.product.selectedSize = cartProvider.size.toString();
                                   print(cartProvider.size);
 
                                 },
@@ -290,7 +291,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 onPressed: () {
                                   cartProvider.quantity = productDetailsProvider.counterValue;
-                                  cart.createEntry(productDetailsProvider.product,cartProvider.quantity);},
+                                  cart.createEntry(productDetailsProvider.product,cartProvider.quantity, cartProvider.size.toString());},
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(

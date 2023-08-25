@@ -21,63 +21,71 @@ class CartDatabase {
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
-    return await openDatabase(path,version: 3, onCreate: _createDB, onUpgrade: _onUpgrade);
+    return await openDatabase(path,
+        version: 10, onCreate: _createDB, onUpgrade: _onUpgrade);
   }
 
   Future _createDB(Database db, int version) async {
     const idType = 'INTEGER PRIMARY KEY';
     const integerType = 'INTEGER';
-    const stringType = 'STRING NOT NULL';
+    const stringType = 'STRING';
     const doubleType = 'DOUBLE NOT NULL';
 
     await db.execute('''
-  CREATE TABLE $cartTable(
-  ${CartFields.id} $idType,
-  ${CartFields.sku} $integerType,
-  ${CartFields.name} $stringType,
-  ${CartFields.brandName} $stringType,
-  ${CartFields.mainImage} $stringType,
-  ${CartFields.price} $doubleType,
-  ${CartFields.currency} $stringType,
-  ${CartFields.sizes} $stringType,  
-  ${CartFields.color} $stringType,
-  ${CartFields.stockStatus} $stringType,
-  ${CartFields.description} $stringType,
-  ${CartFields.quantity} $integerType
-
-  )
+CREATE TABLE $cartTable(
+${CartFields.id} $idType,
+${CartFields.sku} $integerType,
+${CartFields.name} $stringType,
+${CartFields.brandName} $stringType,
+${CartFields.mainImage} $stringType,
+${CartFields.price} $doubleType,
+${CartFields.currency} $stringType,
+${CartFields.sizes} $stringType,  
+${CartFields.color} $stringType,
+${CartFields.stockStatus} $stringType,
+${CartFields.description} $stringType,
+${CartFields.quantity} $integerType,
+${CartFields.selectedSize} $stringType
+)
 ''');
   }
 
-  Future<void> createEntry(Product product, int quantity) async {
+  Future<void> createEntry(Product product, int quantity, String size) async {
     final db = await database;
+    product.selectedSize = size;
     try {
       final existingProduct = await readEntry(int.parse(product.id));
       final newQuantity = existingProduct.quantity! + quantity;
-      await db.update(
+      if(product.selectedSize == existingProduct.selectedSize) {
+
+        await db.update(
         cartTable,
         product.toMap(newQuantity),
         where: '${CartFields.id} = ?',
         whereArgs: [product.id],
       );
-    }
-    catch(e) {
-      await db.insert(cartTable, product.toMap(quantity));
+      }
+      else{
+        product.incrementID();
+        await db.insert(cartTable, product.toMap(quantity));
+      }
+
+    } catch (e) {
+        await db.insert(cartTable, product.toMap(quantity));
+
     }
   }
 
-  Future<Product> readEntry(int id) async {
+  Future<Product> readEntry(int id,) async {
     final db = await database;
     final maps = await db.query(
       cartTable,
       where: '${CartFields.id} = ?',
-      whereArgs: [id],
+      whereArgs: [id,],
     );
     if (maps.isNotEmpty) {
-      print(Product.fromMap(maps.first).description);
       return Product.fromMap(maps.first);
     }
-    print(Product.fromMap(maps.first).description);
     return Product(
         name: '',
         brandName: '',
@@ -99,13 +107,11 @@ class CartDatabase {
       whereArgs: [id],
     );
   }
+
   Future<void> deleteAllEntries() async {
     final db = await database;
     await db.delete(cartTable);
-
-
   }
-
 
   Future<List<Product>> readAllEntries() async {
     final db = await database;
