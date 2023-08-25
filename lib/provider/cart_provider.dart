@@ -10,6 +10,7 @@ class CartProvider extends ChangeNotifier {
   int quantity = 0;
   int size = 8;
   double totalCost = 0;
+  double vatAmount = 0;
 
   Future getItemsInCart() async {
     productList = await cart.readAllEntries();
@@ -21,7 +22,8 @@ class CartProvider extends ChangeNotifier {
     for (Product product in productList) {
       cost += double.parse(product.price.amount);
     }
-    totalCost = cost;
+    vatAmount = 0.03 * cost;
+    totalCost = cost + vatAmount;
   }
   void delete(Product product){
     cart.deleteEntry(int.parse(product.id));
