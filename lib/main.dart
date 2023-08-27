@@ -1,6 +1,7 @@
 import 'package:e_commerce_application/provider/cart_provider.dart';
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:e_commerce_application/provider/selected_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.dart';
 import 'package:e_commerce_application/screens/splash_screen.dart';
 import 'package:e_commerce_application/services/services_configuration.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => SearchScreenProvider()),
+        ChangeNotifierProvider(create: (context) => SelectedScreenProvider()),
         ChangeNotifierProvider(
             create: (context) => ProductDetailsScreenProvider()),
       ],

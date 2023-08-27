@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:e_commerce_application/models/cart.dart';
 import 'package:e_commerce_application/models/product_price.dart';
 import 'package:sqflite/sqflite.dart';
@@ -66,7 +68,7 @@ ${CartFields.selectedSize} $stringType
       );
       }
       else{
-        product.incrementID();
+        product.changeID();
         await db.insert(cartTable, product.toMap(quantity));
       }
 
@@ -97,6 +99,34 @@ ${CartFields.selectedSize} $stringType
         color: '',
         description: '',
         stockStatus: ''); // Return a default or empty Product if not found
+  }
+  Future<void> incrementQuantity(Product product) async {
+    final db = await database;
+    final newQuantity = product.quantity! + 1;
+    final newPrice = double.parse(product.price.amount) +
+        (double.parse(product.price.amount) / product.quantity!);
+
+    await db.rawUpdate(
+      'UPDATE $cartTable '
+          'SET ${CartFields.quantity} = ?, ${CartFields.price} = ? '
+          'WHERE ${CartFields.id} = ?',
+      [newQuantity, newPrice.toString(), int.parse(product.id)],
+    );
+  }
+  Future<void> decrementQuantity(Product product) async {
+    final db = await database;
+
+    // Calculate the new quantity and price after decrementing the quantity
+    final newQuantity = product.quantity! - 1;
+    final newPrice = double.parse(product.price.amount) -
+        (double.parse(product.price.amount) / product.quantity!);
+
+    await db.rawUpdate(
+      'UPDATE $cartTable '
+          'SET ${CartFields.quantity} = ?, ${CartFields.price} = ? '
+          'WHERE ${CartFields.id} = ?',
+      [newQuantity, newPrice.toString(), int.parse(product.id)],
+    );
   }
 
   Future<void> deleteEntry(int id) async {

@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:counter_button/counter_button.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
+import 'package:e_commerce_application/db/cart_db.dart';
+import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
 
-import '../db/cart_db.dart';
+import '../provider/selected_screen_provider.dart';
 
 @RoutePage()
 class ProductDetailsScreen extends StatelessWidget {
@@ -240,8 +242,6 @@ class ProductDetailsScreen extends StatelessWidget {
                                       newSelectedSize;
                                   cartProvider.size = int.parse(productDetailsProvider.product.sizes[index]);
                                   productDetailsProvider.product.selectedSize = cartProvider.size.toString();
-                                  print(cartProvider.size);
-
                                 },
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
@@ -290,8 +290,24 @@ class ProductDetailsScreen extends StatelessWidget {
                               width: 120,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  cartProvider.quantity = productDetailsProvider.counterValue;
-                                  cart.createEntry(productDetailsProvider.product,cartProvider.quantity, cartProvider.size.toString());},
+                                  cartProvider.quantity =
+                                      productDetailsProvider.counterValue;
+                                  cart.createEntry(
+                                      productDetailsProvider.product,
+                                      cartProvider.quantity,
+                                      cartProvider.size.toString());
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                     SnackBar(
+                                       shape:  const RoundedRectangleBorder(
+                                         borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                         topRight:Radius.circular(10)),
+                                       ),
+                                       backgroundColor: AppColors.backgroundColor,
+                                      content: Text('Added ${productDetailsProvider.product.name} to cart (x${cartProvider.quantity})', style: const TextStyle(color: Colors.black87),),
+                                    ),
+                                  );
+                                  },
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
@@ -320,17 +336,14 @@ class ProductDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.black87,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket),
-            label: 'Cart',
-          ),
-        ],
-      ),
+      bottomNavigationBar:  Consumer<SelectedScreenProvider>(
+        builder: (context, selectedIndexProvider, _) {
+      return BottomNavBar(selectedIndex: selectedIndexProvider.selectedIndex,
+        onSelect: selectedIndexProvider.updateIndex,);
+    }
+    ),
+
+
     );
   }
 }

@@ -62,8 +62,8 @@ class Product {
     CartFields.selectedSize : selectedSize,
   };
 
-  void incrementID(){
-    id = id + '00';
+  void changeID(){
+    id = id + '0';
   }
 
   static Product fromMap(Map<String, dynamic> map) => Product(

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:e_commerce_application/models/product.dart';
-
-import '../db/cart_db.dart';
+import 'package:e_commerce_application/db/cart_db.dart';
 
 class CartProvider extends ChangeNotifier {
 
@@ -16,6 +15,14 @@ class CartProvider extends ChangeNotifier {
     productList = await cart.readAllEntries();
     getTotalCost();
     notifyListeners();
+  }
+  void decrementQuantity(Product product){
+    if(product.quantity! > 1){
+      cart.decrementQuantity(product);
+    }
+  }
+  void incrementQuantity(Product product){
+      cart.incrementQuantity(product);
   }
   void getTotalCost() {
     double cost = 0;

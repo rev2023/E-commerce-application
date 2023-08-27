@@ -217,6 +217,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.2"
+  emerge_alert_dialog:
+    dependency: "direct main"
+    description:
+      name: emerge_alert_dialog
+      sha256: "5b564b31ccd1229c05f72e35e119e6c5a96c1c3c8ba5775938094ed9b4074b18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   fake_async:
     dependency: transitive
     description:

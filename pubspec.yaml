@@ -45,6 +45,7 @@ dependencies:
   counter_button: ^1.0.1
   string_to_color: ^2.0.0
   sqflite: ^2.2.8+4
+  emerge_alert_dialog: ^0.0.3
 
 
 
