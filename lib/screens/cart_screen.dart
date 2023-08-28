@@ -57,6 +57,10 @@ class CartScreen extends StatelessWidget {
         },
         body: Column(
           children: [
+            cartProvider.productList.isEmpty ? Text('') : Padding(
+              padding: const EdgeInsets.only(right: 8.0, top: 8),
+              child: GestureDetector(onTap: (){cartProvider.clearCart();},child: Align(alignment: Alignment.bottomRight,child: Text('clear cart', style: TextStyle(fontWeight: FontWeight.w500),))),
+            ),
             Expanded(
               child: Container(
                 child: cartProvider.productList.isEmpty
@@ -131,33 +135,45 @@ class CartScreen extends StatelessWidget {
             Container(
               color: Colors.white60,
               width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(border: Border.all(color: Colors.black87), borderRadius: BorderRadius.all(Radius.circular(20))),
-
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text('Products: £${(cartProvider.totalCost - cartProvider.vatAmount).toStringAsFixed(2)}', style: TextStyle(color: Colors.black87, fontSize: 15),),
-                            Text('VAT(%3): £${cartProvider.vatAmount.toStringAsFixed(2)}', style: TextStyle(color: Colors.black87, fontSize: 15),),
-                            const SizedBox(height: 5,),
-                            Container(width: 100,height: 1,color: Colors.black,),
-                            Text('Total: £${cartProvider.totalCost.toStringAsFixed(2)}', style: TextStyle(color: Colors.black87,fontSize: 21),),
-                          ],
-                        ),
-                      )
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Products:', style: TextStyle(color: Colors.grey[700], fontSize: 15),),
+                              Text('£${(cartProvider.totalCost - cartProvider.vatAmount).toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700]),),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('VAT(%3)', style:  TextStyle(color: Colors.grey[700], fontSize: 15),),
+                              Text('£${cartProvider.vatAmount.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700]),),
+                            ],
+                          ),
+                          const SizedBox(height: 5,),
+                          Container(width: double.infinity,height: 1,color: Colors.grey,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Total:', style: TextStyle(color: Colors.grey[700],fontSize: 15),),
+                              Text('£${cartProvider.totalCost.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700]),),
+                            ],
+                          ),
+                          const SizedBox(height: 5,),                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
-                    height: 60,
-                    width: 130,
+                    height: 50,
+                    width: 220,
                     child: Opacity(
                       opacity: cartProvider.productList.isEmpty ? 0.3 : 1,
                       child: ElevatedButton(
@@ -175,7 +191,8 @@ class CartScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+             const SizedBox(height: 20,),
           ],
         ),
       ),

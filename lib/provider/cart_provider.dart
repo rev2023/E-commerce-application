@@ -37,5 +37,11 @@ class CartProvider extends ChangeNotifier {
     productList.remove(product);
     notifyListeners();
   }
+  void clearCart(){
+    cart.deleteAllEntries();
+    productList.clear();
+    notifyListeners();
+  }
+
 
 }
