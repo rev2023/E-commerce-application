@@ -46,7 +46,6 @@ class CartScreen extends StatelessWidget {
       );
     }
 
-
     return Scaffold(
       key: _scaffoldKey,
       drawer: const Drawer(),

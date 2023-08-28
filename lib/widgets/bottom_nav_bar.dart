@@ -24,7 +24,7 @@ class BottomNavBar extends StatelessWidget {
         if (index == 1) {
           context.router.push(CartRoute());
         } else {
-          context.router.push(HomeRoute());
+          context.router.pop(HomeRoute());
         }
       },
       items:  [

@@ -12,6 +12,7 @@ import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
+import 'package:flutter/cupertino.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
