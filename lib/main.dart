@@ -1,4 +1,7 @@
+import 'package:e_commerce_application/provider/cart_provider.dart';
+import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:e_commerce_application/provider/selected_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.dart';
 import 'package:e_commerce_application/screens/splash_screen.dart';
 import 'package:e_commerce_application/services/services_configuration.dart';
@@ -6,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-   setupDependencies();
-    runApp(const MyApp());
+  setupDependencies();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,10 +20,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
 
-    return MultiProvider( // Wrap your MaterialApp.router with MultiProvider
+    return MultiProvider(
+      // Wrap your MaterialApp.router with MultiProvider
       providers: [
-        ChangeNotifierProvider(create: (context) => SearchScreenProvider()), // Provide the SearchScreenProvider
-        // Add more providers if needed
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => SearchScreenProvider()),
+        ChangeNotifierProvider(create: (context) => SelectedScreenProvider()),
+        ChangeNotifierProvider(
+            create: (context) => ProductDetailsScreenProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),
@@ -33,4 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
