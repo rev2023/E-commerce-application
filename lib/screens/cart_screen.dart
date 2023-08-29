@@ -8,6 +8,7 @@ import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/models/product.dart';
 import 'package:e_commerce_application/provider/selected_screen_provider.dart';
 import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
+import 'package:e_commerce_application/styles/app_colors.dart';
 
 class CartScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -18,6 +19,8 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context,);
     cartProvider.getItemsInCart();
+    double fontSize = 15;
+    const int numberOfDecimals = 2;
 
     Future<void> _showDialog(BuildContext context, VoidCallback method, Product product) async {
       return showDialog<void>(
@@ -32,7 +35,7 @@ class CartScreen extends StatelessWidget {
               content: Text('Confirm you would like to remove  ${product.name} from cart? '),
               actions: [Padding(
                 padding: const EdgeInsets.only(right: 20.0),
-                child: GestureDetector(onTap: (){Navigator.pop(context);},child: Text('Cancel')),
+                child: GestureDetector(onTap: (){Navigator.pop(context);},child: const Text('Cancel')),
               ),Container(
                 height: 45,
                 width: 110,
@@ -59,12 +62,12 @@ class CartScreen extends StatelessWidget {
           children: [
             cartProvider.productList.isEmpty ? Text('') : Padding(
               padding: const EdgeInsets.only(right: 8.0, top: 8),
-              child: GestureDetector(onTap: (){cartProvider.clearCart();},child: Align(alignment: Alignment.bottomRight,child: Text('clear cart', style: TextStyle(fontWeight: FontWeight.w500),))),
+              child: GestureDetector(onTap: (){cartProvider.clearCart();},child: const Align(alignment: Alignment.bottomRight,child: Text('clear cart', style: TextStyle(fontWeight: FontWeight.w500),))),
             ),
             Expanded(
               child: Container(
                 child: cartProvider.productList.isEmpty
-                    ? Center(child: Text('Cart is Empty'))
+                    ? const Center(child: Text('Cart is Empty'))
                     : ListView.builder(
                   itemCount: cartProvider.productList.length,
                   itemBuilder: (context, index) {
@@ -103,23 +106,23 @@ class CartScreen extends StatelessWidget {
                             leading: SizedBox(width: 60, child: Image.network(product.mainImage)),
                             title: Text(
                               product.name,
-                              style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.bold),
                             ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Size: ${product.selectedSize}',
-                                  style: const TextStyle(color: Colors.black54),
+                                  style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                                 Text(
                                   'Quantity: ${product.quantity}',
-                                  style: const TextStyle(color: Colors.black54),
+                                  style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                                 Text(
                                   'Price: ${cSymbol(
                                       product.price.currency)}${product.price.amount}',
-                                  style: const TextStyle(color: Colors.black54),
+                                  style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                               ],
 
@@ -147,24 +150,24 @@ class CartScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Products:', style: TextStyle(color: Colors.grey[700], fontSize: 15),),
-                              Text('£${(cartProvider.totalCost - cartProvider.vatAmount).toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700]),),
+                              Text('Products:', style: TextStyle(color: AppColors.darkGrey, fontSize: fontSize),),
+                              Text('£${(cartProvider.totalCost - cartProvider.vatAmount).toStringAsFixed(numberOfDecimals)}', style: TextStyle(color: Colors.grey[700]),),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('VAT(%3)', style:  TextStyle(color: Colors.grey[700], fontSize: 15),),
-                              Text('£${cartProvider.vatAmount.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700]),),
+                              Text('VAT(%3)', style:  TextStyle(color: AppColors.darkGrey, fontSize: fontSize),),
+                              Text('£${cartProvider.vatAmount.toStringAsFixed(numberOfDecimals)}', style: TextStyle(color: Colors.grey[700]),),
                             ],
                           ),
                           const SizedBox(height: 5,),
-                          Container(width: double.infinity,height: 1,color: Colors.grey,),
+                          Container(width: double.infinity,height: 1,color: AppColors.grey,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Total:', style: TextStyle(color: Colors.grey[700],fontSize: 15),),
-                              Text('£${cartProvider.totalCost.toStringAsFixed(2)}', style: TextStyle(color: Colors.grey[700]),),
+                              Text('Total:', style: TextStyle(color: AppColors.darkGrey,fontSize: fontSize),),
+                              Text('£${cartProvider.totalCost.toStringAsFixed(numberOfDecimals)}', style: TextStyle(color: AppColors.darkGrey),),
                             ],
                           ),
                           const SizedBox(height: 5,),                        ],

@@ -11,4 +11,7 @@ class AppColors{
   static const Color grey =  Colors.grey;
   static const Color green =  Colors.green;
   static const Color offWhite = Colors.white60;
+  static const Color lightBlack = Colors.black54;
+  static  Color? darkGrey =  Colors.grey[700];
+
 }

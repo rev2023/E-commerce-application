@@ -42,6 +42,4 @@ class CartProvider extends ChangeNotifier {
     productList.clear();
     notifyListeners();
   }
-
-
 }
