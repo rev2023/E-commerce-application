@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
           leadingActions: [GestureDetector(onTap:() {context.router.push(HomeRoute());},child: const Icon(Icons.arrow_back_outlined)),],
           automaticallyImplyBackButton: false,
           automaticallyImplyDrawerHamburger: false,
-          backdropColor: Colors.white,
+          backdropColor: Colors.white30,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           hint: 'Search...',
           scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
