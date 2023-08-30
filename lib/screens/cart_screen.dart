@@ -9,7 +9,10 @@ import 'package:e_commerce_application/models/product.dart';
 import 'package:e_commerce_application/provider/selected_screen_provider.dart';
 import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
+@RoutePage()
 class CartScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -30,9 +33,9 @@ class CartScreen extends StatelessWidget {
           return  EmergeAlertDialog(
             alignment: Alignment.bottomCenter,
             emergeAlertDialogOptions: EmergeAlertDialogOptions(
-              title: Text("Remove from cart"),
+              title:Text(AppLocalizations.of(context)!.remove),                
               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-              content: Text('Confirm you would like to remove  ${product.name} from cart? '),
+              content: Text(AppLocalizations.of(context)!.confirmNotif(product.name)),
               actions: [Padding(
                 padding: const EdgeInsets.only(right: 20.0),
                 child: GestureDetector(onTap: (){Navigator.pop(context);},child: const Text('Cancel')),
@@ -40,7 +43,7 @@ class CartScreen extends StatelessWidget {
                 height: 45,
                 width: 110,
                 child: ElevatedButton(onPressed: method ,style: ButtonStyle(shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),backgroundColor: MaterialStateProperty.all(Colors.black87)),
-                child: const Text('Confirm',style: TextStyle(color: Colors.white),)),
+                child: Text(AppLocalizations.of(context)!.confirm,style: TextStyle(color: Colors.white),)),
               )],
               actionsOverflowButtonSpacing: 50
             ),
@@ -67,7 +70,7 @@ class CartScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 child: cartProvider.productList.isEmpty
-                    ? const Center(child: Text('Cart is Empty'))
+                    ?  Center(child: Text(AppLocalizations.of(context)!.emptyCart))
                     : ListView.builder(
                   itemCount: cartProvider.productList.length,
                   itemBuilder: (context, index) {
@@ -112,11 +115,11 @@ class CartScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Size: ${product.selectedSize}',
+                                AppLocalizations.of(context)!.size(product.selectedSize as Object),
                                   style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                                 Text(
-                                  'Quantity: ${product.quantity}',
+                                  AppLocalizations.of(context)!.quantity(product.price.amount),
                                   style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                                 Text(
@@ -150,14 +153,14 @@ class CartScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Products:', style: TextStyle(color: AppColors.darkGrey, fontSize: fontSize),),
+                              Text(AppLocalizations.of(context)!.products, style: TextStyle(color: AppColors.darkGrey, fontSize: fontSize),),
                               Text('£${(cartProvider.totalCost - cartProvider.vatAmount).toStringAsFixed(numberOfDecimals)}', style: TextStyle(color: Colors.grey[700]),),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('VAT(%3)', style:  TextStyle(color: AppColors.darkGrey, fontSize: fontSize),),
+                              Text(AppLocalizations.of(context)!.vat, style:  TextStyle(color: AppColors.darkGrey, fontSize: fontSize),),
                               Text('£${cartProvider.vatAmount.toStringAsFixed(numberOfDecimals)}', style: TextStyle(color: Colors.grey[700]),),
                             ],
                           ),
@@ -166,7 +169,7 @@ class CartScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Total:', style: TextStyle(color: AppColors.darkGrey,fontSize: fontSize),),
+                              Text(AppLocalizations.of(context)!.total, style: TextStyle(color: AppColors.darkGrey,fontSize: fontSize),),
                               Text('£${cartProvider.totalCost.toStringAsFixed(numberOfDecimals)}', style: TextStyle(color: AppColors.darkGrey),),
                             ],
                           ),
@@ -185,9 +188,9 @@ class CartScreen extends StatelessWidget {
                           shape: MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20)))),
                           backgroundColor: MaterialStateProperty.all(const Color(0xFF003366)),
                         ),
-                        child: const Text(
-                          'Checkout',
-                          style: TextStyle(fontSize: 18),
+                        child:  Text(
+                          AppLocalizations.of(context)!.checkout,
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ),
                     ),

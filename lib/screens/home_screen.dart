@@ -13,6 +13,7 @@ import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -48,22 +49,22 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.only(left: 22.0),
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Explore',
+                            AppLocalizations.of(context)!.explore,
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
                     ),
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.only(top: 25.0),
                       child: Center(
                         child: Text(
-                          'Our Brands',
-                          style: TextStyle(fontSize: 20),
+                          AppLocalizations.of(context)!.ourBrands,
+                          style: const TextStyle(fontSize: 20),
                         ),
                       ),
                     ),
@@ -87,12 +88,12 @@ class HomeScreen extends StatelessWidget {
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(20)),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.only(top: 8.0),
+                                      child:  Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
                                         child: Center(
                                           child: Text(
-                                            'All',
-                                            style: TextStyle(
+                                            AppLocalizations.of(context)!.all,
+                                            style: const TextStyle(
                                                 color: Colors.black87,
                                                 fontSize: 20),
                                           ),
@@ -102,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                                     onTap: () {
                                       homeScreenProvider.fetchData();
                                       homeScreenProvider.selectedSortingOption =
-                                          'Regular';
+                                          AppLocalizations.of(context)!.regular;
                                     },
                                   ),
                                 ),
@@ -151,11 +152,11 @@ class HomeScreen extends StatelessWidget {
                                         .handleSortingOption(newValue);
                                   },
                                   items: <String>[
-                                    'Regular',
-                                    'Sort A -Z ',
-                                    'Sort Z - A ',
-                                    'Highest to Lowest price',
-                                    'Lowest to Highest price'
+                                    AppLocalizations.of(context)!.regular,
+                                    AppLocalizations.of(context)!.sortAZ,
+                                    AppLocalizations.of(context)!.sortZA,
+                                    AppLocalizations.of(context)!.highestToLowestPrice,
+                                    AppLocalizations.of(context)!.lowestToHighestPrice,
                                   ].map<DropdownMenuItem<String>>(
                                       (String value) {
                                     return DropdownMenuItem<String>(

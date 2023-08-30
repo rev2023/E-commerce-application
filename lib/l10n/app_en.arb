@@ -1,0 +1,30 @@
+{
+  "@@locale": "en",
+  "explore": "Explore",
+  "ourBrands": "Our Brands",
+  "all": "All",
+  "regular": "Regular",
+  "sortAZ": "Sort A - Z",
+  "sortZA": "Sort Z - A",
+  "highestToLowestPrice": "Highest to Lowest price",
+  "lowestToHighestPrice": "Lowest to Highest price",
+  "emptyCart": "Cart is Empty",
+  "total": "Total:",
+  "checkout": "Checkout",
+  "products": "Products:",
+  "vat": "VAT(%3)",
+  "remove": "Remove from cart",
+  "confirm": "Confirm",
+  "confirmNotif": "Confirm you would like to remove {productName} from cart?",
+  "sku": "SKU: {sku}",
+  "colour": "Colour:",
+  "stockStatus": "Stock Status: {stockStatus}",
+  "description": "Description:",
+  "addedNotif": "Added {productName} to cart (x {quantity})",
+  "add": "Add to cart:",
+  "sizes": "Available Sizes",
+  "size": "Size {size}",
+  "quantity": "Quantity {quantity}"
+
+
+}

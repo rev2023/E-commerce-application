@@ -8,8 +8,8 @@ import 'package:counter_button/counter_button.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
 import 'package:e_commerce_application/db/cart_db.dart';
 import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
-
 import '../provider/selected_screen_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class ProductDetailsScreen extends StatelessWidget {
@@ -18,8 +18,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CartDatabase cart = CartDatabase.instance;
-    final cartProvider =
-    Provider.of<CartProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     final productDetailsProvider =
         Provider.of<ProductDetailsScreenProvider>(context);
     if (productDetailsProvider.allSizes.isEmpty) {
@@ -92,10 +91,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
+                            padding:  const EdgeInsets.only(left: 20.0),
                             child: Text(
-                                'SKU: ${productDetailsProvider.product.SKU}'),
+                                AppLocalizations.of(context)!.sku(productDetailsProvider.product.SKU)
                           ),
+                        ),
                         ),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -103,7 +103,8 @@ class ProductDetailsScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Row(
                               children: [
-                                const Text('Colour: '),
+                                 Text(AppLocalizations.of(context)!.colour,
+                                ),
                                 Container(
                                   height: 10,
                                   width: 20,
@@ -122,7 +123,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
-                              'Stock Status: ${productDetailsProvider.product.stockStatus}',
+                                AppLocalizations.of(context)!.stockStatus(productDetailsProvider.product.stockStatus),
+
                             ),
                           ),
                         ),
@@ -186,14 +188,14 @@ class ProductDetailsScreen extends StatelessWidget {
                                   bottomLeft: Radius.circular(60),
                                   bottomRight: Radius.circular(60))),
                         ),
-                        const Padding(
+                         Padding(
                           padding: EdgeInsets.only(top: 20.0, left: 20),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Description:',
+                              AppLocalizations.of(context)!.description,
                               style:
-                                  TextStyle(fontSize: 17, color: Colors.white),
+                                  const TextStyle(fontSize: 17, color: Colors.white),
                             ),
                           ),
                         ),
@@ -206,15 +208,16 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 30),
-                        const SizedBox(
+                         SizedBox(
                             child: Padding(
-                          padding: EdgeInsets.only(left: 20.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Available Sizes',
-                                style: TextStyle(
-                                    color: AppColors.backgroundColor, fontSize: 17),
+                                AppLocalizations.of(context)!.sizes,
+                                style: const TextStyle(
+                                    color: AppColors.backgroundColor,
+                                    fontSize: 17),
                               )),
                         )),
                         Padding(
@@ -240,8 +243,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                       (i) => i == index);
                                   productDetailsProvider.selectedSize =
                                       newSelectedSize;
-                                  cartProvider.size = int.parse(productDetailsProvider.product.sizes[index]);
-                                  productDetailsProvider.product.selectedSize = cartProvider.size.toString();
+                                  cartProvider.size = int.parse(
+                                      productDetailsProvider
+                                          .product.sizes[index]);
+                                  productDetailsProvider.product.selectedSize =
+                                      cartProvider.size.toString();
                                 },
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
@@ -297,17 +303,26 @@ class ProductDetailsScreen extends StatelessWidget {
                                       cartProvider.quantity,
                                       cartProvider.size.toString());
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                     SnackBar(
-                                       shape:  const RoundedRectangleBorder(
-                                         borderRadius: BorderRadius.only(
+                                    SnackBar(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(10),
-                                         topRight:Radius.circular(10)),
-                                       ),
-                                       backgroundColor: AppColors.backgroundColor,
-                                      content: Text('Added ${productDetailsProvider.product.name} to cart (x${cartProvider.quantity})', style: const TextStyle(color: Colors.black87),),
+                                            topRight: Radius.circular(10)),
+                                      ),
+                                      backgroundColor:
+                                          AppColors.backgroundColor,
+                                      content: Text(
+                                        AppLocalizations.of(context)!
+                                            .addedNotif(
+                                                productDetailsProvider
+                                                    .product.name,
+                                                cartProvider.quantity),
+                                        style: const TextStyle(
+                                            color: Colors.black87),
+                                      ),
                                     ),
                                   );
-                                  },
+                                },
                                 style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
@@ -316,9 +331,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                   backgroundColor: AppColors.green,
                                   // Add other styling properties here
                                 ),
-                                child: const Text(
-                                  'Add to cart',
-                                  style: TextStyle(color: AppColors.backgroundColor),
+                                child:  Text(
+                                    AppLocalizations.of(context)!.add,
+                                  style: const TextStyle(
+                                      color: AppColors.backgroundColor),
                                 ),
                               ),
                             ),
@@ -336,14 +352,13 @@ class ProductDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar:  Consumer<SelectedScreenProvider>(
-        builder: (context, selectedIndexProvider, _) {
-      return BottomNavBar(selectedIndex: selectedIndexProvider.selectedIndex,
-        onSelect: selectedIndexProvider.updateIndex,);
-    }
-    ),
-
-
+      bottomNavigationBar: Consumer<SelectedScreenProvider>(
+          builder: (context, selectedIndexProvider, _) {
+        return BottomNavBar(
+          selectedIndex: selectedIndexProvider.selectedIndex,
+          onSelect: selectedIndexProvider.updateIndex,
+        );
+      }),
     );
   }
 }

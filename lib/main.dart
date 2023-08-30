@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/l10n/l10n.dart';
 import 'package:e_commerce_application/provider/cart_provider.dart';
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
@@ -7,6 +8,8 @@ import 'package:e_commerce_application/screens/splash_screen.dart';
 import 'package:e_commerce_application/services/services_configuration.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 void main() {
   setupDependencies();
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),
+        localizationsDelegates: const [AppLocalizations.delegate],
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
