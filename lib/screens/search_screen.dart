@@ -9,6 +9,7 @@ import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
@@ -38,12 +39,12 @@ class SearchScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.only(left: 22.0),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(
-                        'Your Results: ',
+                          AppLocalizations.of(context)!.result,
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -60,9 +61,10 @@ class SearchScreen extends StatelessWidget {
                           ),
                         );
                       } else if (searchScreenProvider.noResult) {
-                        return const Center(child: Padding(
+                        return  Center(child: Padding(
                           padding: EdgeInsets.all(60.0),
-                          child: Text('No results'),
+                          child: Text(AppLocalizations.of(context)!.noResults),
+
                         ));
                       } else {
                         return Padding(

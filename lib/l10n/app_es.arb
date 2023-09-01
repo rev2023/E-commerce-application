@@ -28,5 +28,9 @@
   "size": "Talla {size}",
   "quantity": "Cantidad {quantity}",
   "explore": "Explorar",
-  "preferences": "Preferencias"
+  "preferences": "Preferencias",
+  "result": "Tu resultado: ",
+  "noResults": "No se encontraron resultados."
+
+
 }

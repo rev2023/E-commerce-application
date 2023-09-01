@@ -29,5 +29,8 @@
   "quantity": "Quantity {quantity}",
   "explore": "Explore",
   "preferences": "Preferences",
-  "selectLanguage": "Select Language"
+  "selectLanguage": "Select Language",
+  "result" : "your result: ",
+  "noResults": "No results."
+
 }
