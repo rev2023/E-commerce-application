@@ -48,7 +48,7 @@ class PreferencesScreen extends StatelessWidget {
                   height: 50,
                 ),
                 ListTile(
-                  title: Text(AppLocalizations.of(context)!.ourBrands),
+                  title: Text(AppLocalizations.of(context)!.selectLanguage),
 
                   trailing: DropdownButton<String>(
                     value: dropdownValue,
