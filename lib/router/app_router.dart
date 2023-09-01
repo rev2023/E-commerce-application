@@ -10,6 +10,8 @@ class AppRouter extends $AppRouter {
     AutoRoute(path: '/screens/search_screen.dart', page: SearchRoute.page,),
     AutoRoute(path: '/screens/product_details_screen.dart', page: ProductDetailsRoute.page, ),
     AutoRoute(path: '/screens/cart_sreen.dart', page: CartRoute.page ),
+    AutoRoute(path: '/screens/preferences-screen.dart', page: PreferencesRoute.page ),
+
 
   ];
 }

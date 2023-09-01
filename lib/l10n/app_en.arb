@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "spanish": "Spanish",
+  "english": "English",
   "explore": "Explore",
   "ourBrands": "Our Brands",
   "all": "All",
@@ -24,7 +26,8 @@
   "add": "Add to cart:",
   "sizes": "Available Sizes",
   "size": "Size {size}",
-  "quantity": "Quantity {quantity}"
-
-
+  "quantity": "Quantity {quantity}",
+  "explore": "Explore",
+  "preferences": "Preferences",
+  "selectLanguage": "Select Language"
 }

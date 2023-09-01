@@ -15,6 +15,8 @@ import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/app_drawer.dart';
+
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -30,7 +32,7 @@ class HomeScreen extends StatelessWidget {
       ],
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: const Drawer(),
+        drawer: AppDrawer(onDrawerItemOnePressed: () {context.router.push(HomeRoute());  }, onDrawerItemTwoPressed: () { context.router.push(PreferencesRoute()); },),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [

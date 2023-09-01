@@ -11,6 +11,9 @@ import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../router/app_router.gr.dart';
+import '../widgets/app_drawer.dart';
+
 
 @RoutePage()
 class CartScreen extends StatelessWidget {
@@ -54,7 +57,7 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const Drawer(),
+        drawer: AppDrawer(onDrawerItemOnePressed: () {context.router.push(HomeRoute());  }, onDrawerItemTwoPressed: () { context.router.push(PreferencesRoute()); },),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
@@ -119,7 +122,6 @@ class CartScreen extends StatelessWidget {
                                   style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)!.quantity(product.price.amount),
                                   AppLocalizations.of(context)!.quantity(product.quantity as Object),
                                   style: const TextStyle(color: AppColors.lightBlack),
                                 ),

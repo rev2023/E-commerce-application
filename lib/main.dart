@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: L10n.all,
             localizationsDelegates: const [AppLocalizations.delegate, GlobalMaterialLocalizations.delegate,GlobalCupertinoLocalizations.delegate ],
             locale: localeProvider.language,
-            title: 'Flutter Demo',
+            title: 'Sport Up',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primarySwatch: Colors.blue,
