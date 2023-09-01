@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,40 +15,61 @@ class PreferencesScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        elevation: 0,
-        foregroundColor: Colors.black87,
-        backgroundColor: AppColors.backgroundColor,
-      ),
       body: Consumer<LocaleProvider>(
         builder: (context, preference, child) {
-          return Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              ListTile(
-                title: Text(AppLocalizations.of(context)!.ourBrands),
-
-                trailing: DropdownButton<String>(
-                  value: dropdownValue,
-                  onChanged: (String? value) {
-                      dropdownValue = value;
-                    // Create a new Locale with the selected language code and update the locale
-                    preference.changeLocale(value == AppLocalizations.of(context)!.spanish ? 'es' : 'en');
-                    preference.saveLocale();
-                  },
-                  items: languageList.map<DropdownMenuItem<String>>(
-                        (String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    },
-                  ).toList(),
+          return SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                  const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.router.pop();
+                        },
+                        child: const Center(
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ),
+                      const Icon(
+                        Icons.person,
+                        color: AppColors.primaryColor,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 50,
+                ),
+                ListTile(
+                  title: Text(AppLocalizations.of(context)!.ourBrands),
+
+                  trailing: DropdownButton<String>(
+                    value: dropdownValue,
+                    onChanged: (String? value) {
+                        dropdownValue = value;
+                      // Create a new Locale with the selected language code and update the locale
+                      preference.changeLocale(value == AppLocalizations.of(context)!.spanish ? 'es' : 'en');
+                      preference.saveLocale();
+                    },
+                    items: languageList.map<DropdownMenuItem<String>>(
+                          (String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),

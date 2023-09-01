@@ -25,7 +25,6 @@ class AppDrawer extends StatelessWidget {
 
               Container(
                 width: 5,
-                decoration: const BoxDecoration(border:Border(bottom: BorderSide(width: 0.5,))),
                 child: ListTile(
                   title: Text(AppLocalizations.of(context)!.explore),
                   trailing: const Icon(Icons.arrow_right_alt),
@@ -38,7 +37,6 @@ class AppDrawer extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Container(
                   width: 5,
-                  decoration: const BoxDecoration(border:Border(bottom: BorderSide(width: 0.5,))),
                   child: ListTile(
                     title:  Text(AppLocalizations.of(context)!.preferences),
                     trailing: const Icon(Icons.arrow_right_alt),
