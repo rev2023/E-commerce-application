@@ -120,6 +120,7 @@ class CartScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.quantity(product.price.amount),
+                                  AppLocalizations.of(context)!.quantity(product.quantity as Object),
                                   style: const TextStyle(color: AppColors.lightBlack),
                                 ),
                                 Text(
