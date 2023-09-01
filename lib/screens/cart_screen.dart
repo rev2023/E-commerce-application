@@ -10,9 +10,8 @@ import 'package:e_commerce_application/provider/selected_screen_provider.dart';
 import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../router/app_router.gr.dart';
-import '../widgets/app_drawer.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
+import 'package:e_commerce_application/widgets/app_drawer.dart';
 
 
 @RoutePage()

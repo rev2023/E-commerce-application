@@ -62,7 +62,7 @@ class SearchScreen extends StatelessWidget {
                         );
                       } else if (searchScreenProvider.noResult) {
                         return  Center(child: Padding(
-                          padding: EdgeInsets.all(60.0),
+                          padding: const EdgeInsets.all(60.0),
                           child: Text(AppLocalizations.of(context)!.noResults),
 
                         ));
@@ -92,7 +92,7 @@ class SearchScreen extends StatelessWidget {
                                           context,
                                           listen: false);
                                       productDetailsProvider.product = product;
-                                      context.router.push(ProductDetailsRoute());
+                                      context.router.push(const ProductDetailsRoute());
                                     },
                                     child: ProductHolder(product: product)),
                               );
