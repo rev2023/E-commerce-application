@@ -1,7 +1,13 @@
-class ProductList{
+import 'dart:convert';
+import 'package:e_commerce_application/models/product_price.dart';
+import 'cart.dart';
+
+class ProductList {
   List<Product> productList;
 
+
   ProductList(this.productList);
+
   factory ProductList.fromJson(Map<String, dynamic> jsonData) {
     final products = jsonData['data'] as List<dynamic>;
     final productsList = products.map((product) => Product.fromJson(product)).toList();
@@ -10,18 +16,23 @@ class ProductList{
 }
 
 class Product {
-  final String id;
+  String id;
   final String SKU;
   final String name;
   final String brandName;
   final String mainImage;
-  final Map<String, dynamic> price;
+  final ProductPrice price;
   final List<dynamic> sizes;
   final String color;
   final String stockStatus;
   final String description;
+   num? quantity;
+  String? selectedSize;
+
+
 
   Product({
+    this.quantity,
     required this.name,
     required this.brandName,
     required this.id,
@@ -32,7 +43,46 @@ class Product {
     required this.color,
     required this.description,
     required this.stockStatus,
+    this.selectedSize,
   });
+
+  Map<String, dynamic> toMap(num quantity) => {
+    CartFields.id: int.parse(id),
+    CartFields.sku: int.parse(SKU),
+    CartFields.name: name,
+    CartFields.brandName: brandName,
+    CartFields.mainImage: mainImage,
+    CartFields.currency: price.currency,
+    CartFields.price: double.parse(price.amount) *quantity,
+    CartFields.sizes: json.encode(sizes),
+    CartFields.color: color,
+    CartFields.stockStatus: stockStatus,
+    CartFields.description: description,
+    CartFields.quantity: quantity,
+    CartFields.selectedSize : selectedSize,
+  };
+
+  void changeID(){
+    id = id + '0';
+  }
+
+  static Product fromMap(Map<String, dynamic> map) => Product(
+    name: map[CartFields.name] as String,
+    brandName: map[CartFields.brandName] as String,
+    id: map[CartFields.id].toString(),
+    mainImage: map[CartFields.mainImage] as String,
+    SKU: map[CartFields.sku].toString(),
+    price: ProductPrice(
+        amount: map[CartFields.price].toString(),
+        currency: map[CartFields.currency].toString()),
+    sizes: json.decode(map[CartFields.sizes]) as List<dynamic>,
+    color: map[CartFields.color] as String,
+    description: map[CartFields.description] as String,
+    stockStatus: map[CartFields.stockStatus] as String,
+    quantity: map[CartFields.quantity],
+      selectedSize : map[CartFields.selectedSize].toString()
+
+  );
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
@@ -42,9 +92,9 @@ class Product {
       mainImage: json['mainImage'] as String,
       color: json['colour'] as String,
       SKU: json['SKU'] as String,
-      price: json['price'] as Map<String,dynamic>,
-        sizes: json['sizes'] as List<dynamic>,
-        description: json['description'] as String,
+      price: ProductPrice.fromJson(json['price']),
+      sizes: List<dynamic>.from(json['sizes']),
+      description: json['description'] as String,
       stockStatus: json['stockStatus'] as String,
     );
   }

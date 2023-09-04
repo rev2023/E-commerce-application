@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,9 @@ import 'package:e_commerce_application/styles/app_colors.dart';
 import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
+import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
@@ -35,12 +39,12 @@ class SearchScreen extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  const Padding(
+                   Padding(
                     padding: EdgeInsets.only(left: 22.0),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: Text(
-                        'Your Results: ',
+                          AppLocalizations.of(context)!.result,
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
@@ -57,9 +61,10 @@ class SearchScreen extends StatelessWidget {
                           ),
                         );
                       } else if (searchScreenProvider.noResult) {
-                        return const Center(child: Padding(
-                          padding: EdgeInsets.all(60.0),
-                          child: Text('No results'),
+                        return  Center(child: Padding(
+                          padding: const EdgeInsets.all(60.0),
+                          child: Text(AppLocalizations.of(context)!.noResults),
+
                         ));
                       } else {
                         return Padding(
@@ -80,7 +85,16 @@ class SearchScreen extends StatelessWidget {
                               searchScreenProvider.productList[index];
                               return Padding(
                                 padding: const EdgeInsets.all(15.0),
-                                child: ProductHolder(product: product),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      final productDetailsProvider = Provider
+                                          .of<ProductDetailsScreenProvider>(
+                                          context,
+                                          listen: false);
+                                      productDetailsProvider.product = product;
+                                      context.router.push(const ProductDetailsRoute());
+                                    },
+                                    child: ProductHolder(product: product)),
                               );
                             },
                           ),

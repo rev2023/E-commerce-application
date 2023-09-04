@@ -1,4 +1,8 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/provider/cart_provider.dart';
+import 'package:e_commerce_application/provider/product_details_screen_provider.dart';
+import 'package:e_commerce_application/provider/selected_screen_provider.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
@@ -7,24 +11,28 @@ import 'package:e_commerce_application/widgets/brand_icon.dart';
 import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
-import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:e_commerce_application/widgets/bottom_nav_bar.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../widgets/app_drawer.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   HomeScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
-    // Wrap the HomeScreen with ChangeNotifierProvider and provide the HomeScreenProvider instance.
+    final cartProvider = Provider.of<CartProvider>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
       ],
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: const Drawer(),
+        drawer: AppDrawer(onDrawerItemOnePressed: () {context.router.push(HomeRoute());  }, onDrawerItemTwoPressed: () { context.router.push(PreferencesRoute()); },),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
@@ -43,22 +51,22 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.only(left: 22.0),
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          'Explore',
+                            AppLocalizations.of(context)!.explore,
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
                     ),
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.only(top: 25.0),
                       child: Center(
                         child: Text(
-                          'Our Brands',
-                          style: TextStyle(fontSize: 20),
+                          AppLocalizations.of(context)!.ourBrands,
+                          style: const TextStyle(fontSize: 20),
                         ),
                       ),
                     ),
@@ -77,24 +85,27 @@ class HomeScreen extends StatelessWidget {
                                       height: 60,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        border: Border.all(color: Colors.black87),
-                                        borderRadius:
-                                        const BorderRadius.all(Radius.circular(20)),
+                                        border:
+                                            Border.all(color: Colors.black87),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20)),
                                       ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.only(top: 8.0),
+                                      child:  Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
                                         child: Center(
                                           child: Text(
-                                            'All',
-                                            style: TextStyle(
-                                                color: Colors.black87, fontSize: 20),
+                                            AppLocalizations.of(context)!.all,
+                                            style: const TextStyle(
+                                                color: Colors.black87,
+                                                fontSize: 20),
                                           ),
                                         ),
                                       ),
                                     ),
                                     onTap: () {
                                       homeScreenProvider.fetchData();
-                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                      homeScreenProvider.selectedSortingOption =
+                                          AppLocalizations.of(context)!.regular;
                                     },
                                   ),
                                 ),
@@ -107,7 +118,8 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     onTap: () {
                                       homeScreenProvider.filterNike();
-                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                      homeScreenProvider.selectedSortingOption =
+                                          'Regular';
                                     },
                                   ),
                                 ),
@@ -116,7 +128,8 @@ class HomeScreen extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () {
                                       homeScreenProvider.filterPuma();
-                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                      homeScreenProvider.selectedSortingOption =
+                                          'Regular';
                                     },
                                     child: BrandIcon(
                                       image: 'lib/assets/images/puma-white.svg',
@@ -132,18 +145,22 @@ class HomeScreen extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 16.0),
                                 child: DropdownButton<String>(
                                   alignment: Alignment.centerRight,
-                                  value: homeScreenProvider.selectedSortingOption,
+                                  value:
+                                      homeScreenProvider.selectedSortingOption,
                                   onChanged: (newValue) {
-                                    homeScreenProvider.selectedSortingOption = newValue!;
-                                    homeScreenProvider.handleSortingOption(newValue);
+                                    homeScreenProvider.selectedSortingOption =
+                                        newValue!;
+                                    homeScreenProvider
+                                        .handleSortingOption(newValue);
                                   },
                                   items: <String>[
-                                    'Regular',
-                                    'Sort A -Z ',
-                                    'Sort Z - A ',
-                                    'Highest to Lowest price',
-                                    'Lowest to Highest price'
-                                  ].map<DropdownMenuItem<String>>((String value) {
+                                    AppLocalizations.of(context)!.regular,
+                                    AppLocalizations.of(context)!.sortAZ,
+                                    AppLocalizations.of(context)!.sortZA,
+                                    AppLocalizations.of(context)!.highestToLowestPrice,
+                                    AppLocalizations.of(context)!.lowestToHighestPrice,
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
@@ -164,7 +181,8 @@ class HomeScreen extends StatelessWidget {
                           return const Center(
                             child: Padding(
                               padding: EdgeInsets.only(top: 100.0),
-                              child: CircularProgressIndicator(color: AppColors.primaryColor),
+                              child: CircularProgressIndicator(
+                                  color: AppColors.primaryColor),
                             ),
                           );
                         } else {
@@ -174,7 +192,8 @@ class HomeScreen extends StatelessWidget {
                             child: GridView.builder(
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: 8,
@@ -182,10 +201,21 @@ class HomeScreen extends StatelessWidget {
                               ),
                               itemCount: homeScreenProvider.productList.length,
                               itemBuilder: (context, index) {
-                                final product = homeScreenProvider.productList[index];
+                                final product =
+                                    homeScreenProvider.productList[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(15.0),
-                                  child: ProductHolder(product: product),
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        final productDetailsProvider = Provider
+                                            .of<ProductDetailsScreenProvider>(
+                                                context,
+                                                listen: false);
+                                        productDetailsProvider.product = product;
+                                        context.router.push(const ProductDetailsRoute());
+
+                                      },
+                                      child: ProductHolder(product: product)),
                                 );
                               },
                             ),
@@ -199,17 +229,13 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          selectedItemColor: Colors.black87,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket),
-              label: 'Cart',
-            ),
-          ],
-        ),
+        bottomNavigationBar:  Consumer<SelectedScreenProvider>(
+          builder: (context, selectedIndexProvider, _) {
+            BottomNavBar.itemCount = cartProvider.productList.length;
+            return BottomNavBar(selectedIndex: selectedIndexProvider.selectedIndex,
+                onSelect: selectedIndexProvider.updateIndex, );
+          }
+        )
       ),
     );
   }
