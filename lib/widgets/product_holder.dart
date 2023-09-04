@@ -16,7 +16,7 @@ class ProductHolder extends StatelessWidget {
         } else if (snapshot.hasError) {
           return const Icon(Icons.error);
         } else {
-          return Image.network(uri, width: 220, height: 120, fit: BoxFit.cover);
+          return Image.network(uri, width: 150, height: 100, fit: BoxFit.cover);
         }
       },
     );
@@ -26,15 +26,16 @@ class ProductHolder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
+        boxShadow: [BoxShadow(color: Colors.black87,),],
         color: Colors.white,
         borderRadius: BorderRadius.only(bottomRight:Radius.circular(40), bottomLeft:Radius.circular(40) ),
       ),
       child: Column(
         children: [
           const SizedBox(height: 20),
-          Container(
-            width: 220,
-            height: 120,
+          SizedBox(
+            width: 160,
+            height: 140,
             child: displayImage(product.mainImage, context),
           ),
           const SizedBox(height: 5),
