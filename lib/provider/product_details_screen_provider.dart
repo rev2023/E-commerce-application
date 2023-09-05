@@ -21,7 +21,7 @@ class ProductDetailsScreenProvider extends ChangeNotifier {
     this.product = product;
     notifyListeners(); // Notify listeners that the product has been set
   }
-  
+
   // This method populates the 'sizes' list with the sizes from the product
   void populateSizes() {
     // Populate the sizes list

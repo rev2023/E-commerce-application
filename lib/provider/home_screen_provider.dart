@@ -62,20 +62,18 @@ class HomeScreenProvider extends ChangeNotifier {
   }
 
   void sortPriceDescending() {
-    for (int j = 1; j < productList.length; j++) {
-      double key = double.parse(productList[j].price.amount);
-      Product temp = productList[j];
-      int i = j - 1;
-      productList.asMap().forEach((index, product) {
-        if (index >= 0 && double.parse(product.price.amount) < key) {
-          productList[index + 1] = productList[index];
-          i = index;
-        }
-      });
-      productList[i + 1] = temp;
-    }
+    productList.forEach((product) {
+      double key = double.parse(product.price.amount);
+      int i = productList.indexOf(product) - 1;
 
-    notifyListeners();
+      while (i >= 0 && double.parse(productList[i].price.amount) < key) {
+        productList[i + 1] = productList[i];
+        i = i - 1;
+      }
+
+      productList[i + 1] = product;
+      notifyListeners();
+    });
   }
 
   void sortPriceAscending() {
