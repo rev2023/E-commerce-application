@@ -8,8 +8,7 @@ class HomeScreenProvider extends ChangeNotifier {
   List<Product> productList = [];
   String _selectedOption = 'Regular';
 
-  HomeScreenProvider() {
-  }
+  HomeScreenProvider();
 
   String get selectedSortingOption => _selectedOption;
   set selectedSortingOption(String option) {
@@ -67,29 +66,31 @@ class HomeScreenProvider extends ChangeNotifier {
       double key = double.parse(productList[j].price.amount);
       Product temp = productList[j];
       int i = j - 1;
-
-      while (i >= 0 && double.parse(productList[i].price.amount) < key) {
-        productList[i + 1] = productList[i];
-        i = i - 1;
-      }
+      productList.asMap().forEach((index, product) {
+        if (index >= 0 && double.parse(product.price.amount) < key) {
+          productList[index + 1] = productList[index];
+          i = index;
+        }
+      });
       productList[i + 1] = temp;
     }
+
     notifyListeners();
   }
 
   void sortPriceAscending() {
-    productList.sort((a, b) =>
-        double.parse(a.price.amount).compareTo(double.parse(b.price.amount)));
+    productList.sort((productOne, productTwo) =>
+        double.parse(productOne.price.amount).compareTo(double.parse(productTwo.price.amount)));
     notifyListeners();
   }
 
   void sortAscendingAlphabetically() {
-    productList.sort((a, b) => a.name.compareTo(b.name));
+    productList.sort((productOne, productTwo) => productOne.name.compareTo(productTwo.name));
     notifyListeners();
   }
 
   void sortDescendingAlphabetically() {
-    productList.sort((a, b) => b.name.compareTo(a.name));
+    productList.sort((productOne, productTwo) => productTwo.name.compareTo(productOne.name));
     notifyListeners();
   }
 }

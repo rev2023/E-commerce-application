@@ -17,6 +17,12 @@ class ProductDetailsScreen extends StatelessWidget {
     if (productDetailsProvider.allSizes.isEmpty) {
       productDetailsProvider.populateSizes();
     }
+    List<Widget> sizes = productDetailsProvider.allSizes.map((String size) {
+      return Text(
+        size,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      );
+    }).toList();
     return Scaffold(
       drawer: const Drawer(),
       backgroundColor: AppColors.backgroundColor,
@@ -100,7 +106,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   height: 10,
                                   width: 20,
                                   decoration: BoxDecoration(
-                                      color: productDetailsProvider.parseColor(
+                                      color: AppColors.parseColor(
                                           productDetailsProvider.product.color),
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(50))),
@@ -223,7 +229,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     Radius.circular(10.0)),
                               ),
                               child: ToggleButtons(
-                                selectedColor: Colors.white,
+                                selectedColor: AppColors.primaryColor,
                                 borderColor: Colors.black87,
                                 direction: Axis.horizontal,
                                 onPressed: (int index) {
@@ -235,13 +241,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                 },
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(8)),
-                                selectedBorderColor: Colors.black,
+                                selectedBorderColor: AppColors.primaryColor,
                                 constraints: const BoxConstraints(
                                   minHeight: 40.0,
                                   minWidth: 80.0,
                                 ),
                                 isSelected: productDetailsProvider.selectedSize,
-                                children: productDetailsProvider.allSizes,
+                                children: sizes,
                               ),
                             ),
                           ),
