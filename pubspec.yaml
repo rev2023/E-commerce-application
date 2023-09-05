@@ -42,6 +42,8 @@ dependencies:
   currency_symbols: ^0.0.1+2
   get_it: ^7.6.0
   auto_route: ^7.7.1
+  firebase_core: ^2.15.1
+  firebase_messaging: ^14.6.7
 
 
 dev_dependencies:

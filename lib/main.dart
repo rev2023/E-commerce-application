@@ -1,13 +1,22 @@
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.dart';
-import 'package:e_commerce_application/screens/splash_screen.dart';
+import 'package:e_commerce_application/services/api/firebase_api.dart';
 import 'package:e_commerce_application/services/services_configuration.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+void main() async{
+   WidgetsFlutterBinding.ensureInitialized();
    setupDependencies();
-    runApp(const MyApp());
+   await Firebase.initializeApp(
+     options: DefaultFirebaseOptions.currentPlatform,
+   );
+   await FirebaseAPI().initNotifications();
+
+    runApp( const MyApp());
 }
 
 class MyApp extends StatelessWidget {
