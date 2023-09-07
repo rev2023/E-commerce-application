@@ -70,7 +70,6 @@ class HomeScreenProvider extends ChangeNotifier {
         productList[i + 1] = productList[i];
         i = i - 1;
       }
-
       productList[i + 1] = product;
       notifyListeners();
     });

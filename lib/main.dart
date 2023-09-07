@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
       // Wrap your MaterialApp.router with MultiProvider
       providers: [
         ChangeNotifierProvider(create: (context) => SearchScreenProvider()),
-        ChangeNotifierProvider(
-            create: (context) => ProductDetailsScreenProvider()),
       ],
       child: MaterialApp.router(
         routerConfig: appRouter.config(),

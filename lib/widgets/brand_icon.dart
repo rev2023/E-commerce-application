@@ -7,7 +7,7 @@ class BrandIcon extends StatelessWidget {
   final String image;
   final Color backgroundColor;
 
-  BrandIcon({super.key, required this.image,  required this.backgroundColor,});
+  const BrandIcon({super.key, required this.image,  required this.backgroundColor,});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class BrandIcon extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         color: backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

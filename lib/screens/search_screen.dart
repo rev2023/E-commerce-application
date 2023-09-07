@@ -86,12 +86,7 @@ class SearchScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(15.0),
                                 child: GestureDetector(
                                     onTap: () {
-                                      final productDetailsProvider = Provider
-                                          .of<ProductDetailsScreenProvider>(
-                                          context,
-                                          listen: false);
-                                      productDetailsProvider.product = product;
-                                      context.router.push(ProductDetailsRoute());
+                                      context.router.push(ProductDetailsRoute(product: product));
                                     },
                                     child: ProductHolder(product: product)),
                               );

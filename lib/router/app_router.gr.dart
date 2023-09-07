@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i5;
+import 'package:e_commerce_application/models/product.dart' as _i7;
 import 'package:e_commerce_application/screens/home_screen.dart' as _i1;
 import 'package:e_commerce_application/screens/product_details_screen.dart'
     as _i2;
@@ -30,9 +31,13 @@ abstract class $AppRouter extends _i5.RootStackRouter {
       );
     },
     ProductDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<ProductDetailsRouteArgs>();
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.ProductDetailsScreen(),
+        child: _i2.ProductDetailsScreen(
+          key: args.key,
+          product: args.product,
+        ),
       );
     },
     SearchRoute.name: (routeData) {
@@ -81,16 +86,40 @@ class HomeRouteArgs {
 
 /// generated route for
 /// [_i2.ProductDetailsScreen]
-class ProductDetailsRoute extends _i5.PageRouteInfo<void> {
-  const ProductDetailsRoute({List<_i5.PageRouteInfo>? children})
-      : super(
+class ProductDetailsRoute extends _i5.PageRouteInfo<ProductDetailsRouteArgs> {
+  ProductDetailsRoute({
+    _i6.Key? key,
+    required _i7.Product product,
+    List<_i5.PageRouteInfo>? children,
+  }) : super(
           ProductDetailsRoute.name,
+          args: ProductDetailsRouteArgs(
+            key: key,
+            product: product,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProductDetailsRoute';
 
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
+  static const _i5.PageInfo<ProductDetailsRouteArgs> page =
+      _i5.PageInfo<ProductDetailsRouteArgs>(name);
+}
+
+class ProductDetailsRouteArgs {
+  const ProductDetailsRouteArgs({
+    this.key,
+    required this.product,
+  });
+
+  final _i6.Key? key;
+
+  final _i7.Product product;
+
+  @override
+  String toString() {
+    return 'ProductDetailsRouteArgs{key: $key, product: $product}';
+  }
 }
 
 /// generated route for

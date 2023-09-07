@@ -103,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 30),
                                   child: GestureDetector(
-                                    child: BrandIcon(
+                                    child: const BrandIcon(
                                       image: 'lib/assets/images/nike.svg',
                                       backgroundColor: AppColors.nikeOrange,
                                     ),
@@ -122,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                                       homeScreenProvider.selectedSortingOption =
                                           'Regular';
                                     },
-                                    child: BrandIcon(
+                                    child: const BrandIcon(
                                       image: 'lib/assets/images/puma-white.svg',
                                       backgroundColor: AppColors.pumaRed,
                                     ),
@@ -198,12 +198,8 @@ class HomeScreen extends StatelessWidget {
                                   padding: const EdgeInsets.all(15.0),
                                   child: GestureDetector(
                                       onTap: () {
-                                        final productDetailsProvider = Provider
-                                            .of<ProductDetailsScreenProvider>(
-                                                context,
-                                                listen: false);
-                                        productDetailsProvider.product = product;
-                                        context.router.push(const ProductDetailsRoute());
+
+                                        context.router.push(ProductDetailsRoute(product: product));
                                       },
                                       child: ProductHolder(product: product)),
                                 );
