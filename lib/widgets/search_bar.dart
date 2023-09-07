@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.gr.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:provider/provider.dart';

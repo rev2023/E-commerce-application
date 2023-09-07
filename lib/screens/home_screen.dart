@@ -1,4 +1,5 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
@@ -7,17 +8,15 @@ import 'package:e_commerce_application/widgets/brand_icon.dart';
 import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
-import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:e_commerce_application/provider/sorting_options.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Wrap the HomeScreen with ChangeNotifierProvider and provide the HomeScreenProvider instance.
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => HomeScreenProvider()),
@@ -77,9 +76,10 @@ class HomeScreen extends StatelessWidget {
                                       height: 60,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        border: Border.all(color: Colors.black87),
-                                        borderRadius:
-                                        const BorderRadius.all(Radius.circular(20)),
+                                        border:
+                                            Border.all(color: Colors.black87),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20)),
                                       ),
                                       child: const Padding(
                                         padding: EdgeInsets.only(top: 8.0),
@@ -87,27 +87,30 @@ class HomeScreen extends StatelessWidget {
                                           child: Text(
                                             'All',
                                             style: TextStyle(
-                                                color: Colors.black87, fontSize: 20),
+                                                color: Colors.black87,
+                                                fontSize: 20),
                                           ),
                                         ),
                                       ),
                                     ),
                                     onTap: () {
                                       homeScreenProvider.fetchData();
-                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                      homeScreenProvider.selectedSortingOption =
+                                          SortingOption.regular;
                                     },
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 30),
                                   child: GestureDetector(
-                                    child: BrandIcon(
+                                    child: const BrandIcon(
                                       image: 'lib/assets/images/nike.svg',
                                       backgroundColor: AppColors.nikeOrange,
                                     ),
                                     onTap: () {
                                       homeScreenProvider.filterNike();
-                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                      homeScreenProvider.selectedSortingOption =
+                                          SortingOption.regular;
                                     },
                                   ),
                                 ),
@@ -116,9 +119,10 @@ class HomeScreen extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () {
                                       homeScreenProvider.filterPuma();
-                                      homeScreenProvider.selectedSortingOption = 'Regular';
+                                      homeScreenProvider.selectedSortingOption =
+                                          SortingOption.regular;
                                     },
-                                    child: BrandIcon(
+                                    child: const BrandIcon(
                                       image: 'lib/assets/images/puma-white.svg',
                                       backgroundColor: AppColors.pumaRed,
                                     ),
@@ -132,21 +136,18 @@ class HomeScreen extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 16.0),
                                 child: DropdownButton<String>(
                                   alignment: Alignment.centerRight,
-                                  value: homeScreenProvider.selectedSortingOption,
+                                  value: homeScreenProvider.selectedSortingOption.toDisplayString(),
                                   onChanged: (newValue) {
-                                    homeScreenProvider.selectedSortingOption = newValue!;
-                                    homeScreenProvider.handleSortingOption(newValue);
+                                    final selectedOption = SortingOption.values.firstWhere(
+                                            (option) => option.toDisplayString() == newValue,);
+
+                                    homeScreenProvider.selectedSortingOption = selectedOption;
+                                    homeScreenProvider.handleSortingOption(selectedOption);
                                   },
-                                  items: <String>[
-                                    'Regular',
-                                    'Sort A -Z ',
-                                    'Sort Z - A ',
-                                    'Highest to Lowest price',
-                                    'Lowest to Highest price'
-                                  ].map<DropdownMenuItem<String>>((String value) {
+                                  items: SortingOption.values.map<DropdownMenuItem<String>>((enumValue) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
+                                      value: enumValue.toDisplayString(),
+                                      child: Text(enumValue.toDisplayString()),
                                     );
                                   }).toList(),
                                 ),
@@ -164,7 +165,8 @@ class HomeScreen extends StatelessWidget {
                           return const Center(
                             child: Padding(
                               padding: EdgeInsets.only(top: 100.0),
-                              child: CircularProgressIndicator(color: AppColors.primaryColor),
+                              child: CircularProgressIndicator(
+                                  color: AppColors.primaryColor),
                             ),
                           );
                         } else {
@@ -174,7 +176,8 @@ class HomeScreen extends StatelessWidget {
                             child: GridView.builder(
                               shrinkWrap: true,
                               physics: const ClampingScrollPhysics(),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: 8,
@@ -182,10 +185,16 @@ class HomeScreen extends StatelessWidget {
                               ),
                               itemCount: homeScreenProvider.productList.length,
                               itemBuilder: (context, index) {
-                                final product = homeScreenProvider.productList[index];
+                                final product =
+                                    homeScreenProvider.productList[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(15.0),
-                                  child: ProductHolder(product: product),
+                                  child: GestureDetector(
+                                      onTap: () {
+
+                                        context.router.push(ProductDetailsRoute(product: product));
+                                      },
+                                      child: ProductHolder(product: product)),
                                 );
                               },
                             ),

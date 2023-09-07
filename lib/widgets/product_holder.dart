@@ -14,8 +14,10 @@ class ProductHolder extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text('');
         } else if (snapshot.hasError) {
+          // Show an error icon as a replacement image
           return const Icon(Icons.error);
         } else {
+          // Display the network image
           return Image.network(uri, width: 220, height: 120, fit: BoxFit.cover);
         }
       },
@@ -46,12 +48,12 @@ class ProductHolder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                cSymbol(product.price['currency']),
+                cSymbol(product.price.currency),
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 3),
               Text(
-                product.price['amount'],
+                product.price.amount,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
