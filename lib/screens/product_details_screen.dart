@@ -259,7 +259,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 20.0, top: 20),
+                                padding: const EdgeInsets.only(top: 15.0,left: 25),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
@@ -284,25 +284,24 @@ class ProductDetailsScreen extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 20.0, top: 10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Center(
                                   child: SizedBox(
-                                    height: 40,
-                                    width: 120,
+                                    height: 45,
+                                    width: 350,
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: OutlinedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
-                                              10), // Adjust the value as needed
+                                              40), // Adjust the value as needed
                                         ),
                                         backgroundColor: AppColors.green,
                                         // Add other styling properties here
                                       ),
-                                      child: const Text(
+                                      child:  const Text(
                                         'Add to cart',
-                                        style: TextStyle(color: AppColors.backgroundColor),
+                                        style: TextStyle(color: AppColors.backgroundColor, fontSize: 20),
                                       ),
                                     ),
                                   ),
