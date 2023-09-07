@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/provider/sorting_options.dart';
 import 'package:e_commerce_application/repository/product_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:e_commerce_application/models/product.dart';
@@ -6,13 +7,14 @@ import 'package:e_commerce_application/services/services_configuration.dart';
 class HomeScreenProvider extends ChangeNotifier {
   final ProductRepository productRepository = getIt<ProductRepository>();
   List<Product> productList = [];
-  String _selectedOption = 'Regular';
+  SortingOption _selectedOption = SortingOption.regular;
 
   HomeScreenProvider();
 
-  String get selectedSortingOption => _selectedOption;
-  set selectedSortingOption(String option) {
-    _selectedOption = option;
+  SortingOption get selectedSortingOption => _selectedOption;
+
+  set selectedSortingOption(SortingOption option) {
+    _selectedOption = option ;
     notifyListeners();
   }
 
@@ -40,39 +42,48 @@ class HomeScreenProvider extends ChangeNotifier {
 
   void handleSortingOption(newValue) {
     switch (newValue) {
-      case 'Sort A - Z':
+      case SortingOption.sortAscendingAlphabetically:
         sortAscendingAlphabetically();
         notifyListeners();
         break;
-      case 'Sort Z - A':
+      case SortingOption.sortDescendingAlphabetically:
         sortDescendingAlphabetically();
         notifyListeners();
         break;
-      case 'Highest to Lowest price':
+      case SortingOption.sortPriceDescending:
         sortPriceDescending();
         notifyListeners();
         break;
-      case 'Lowest to Highest price':
+      case SortingOption.sortPriceAscending:
         sortPriceAscending();
         notifyListeners();
         break;
-      default:
+      case SortingOption.sortAscendingAlphabetically:
+        sortAscendingAlphabetically();
+        notifyListeners();
+        break;
+      case SortingOption.sortDescendingAlphabetically:
+        sortDescendingAlphabetically();
+        notifyListeners();
+        break;
+      case SortingOption.sortPriceDescending:
+        sortPriceDescending();
+        notifyListeners();
+        break;
+      case SortingOption.regular:
         fetchData();
+        notifyListeners();
+        break;
+      default:
+        throw Exception('Error selecting option');
+        break;
     }
   }
 
   void sortPriceDescending() {
-    productList.forEach((product) {
-      double key = double.parse(product.price.amount);
-      int i = productList.indexOf(product) - 1;
-
-      while (i >= 0 && double.parse(productList[i].price.amount) < key) {
-        productList[i + 1] = productList[i];
-        i = i - 1;
-      }
-      productList[i + 1] = product;
-      notifyListeners();
-    });
+    productList.sort((productOne, productTwo) =>
+        double.parse(productTwo.price.amount).compareTo(double.parse(productOne.price.amount)));
+    notifyListeners();
   }
 
   void sortPriceAscending() {

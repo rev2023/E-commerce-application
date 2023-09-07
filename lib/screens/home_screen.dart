@@ -10,6 +10,8 @@ import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
 
+import '../provider/sorting_options.dart';
+
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -96,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                                     onTap: () {
                                       homeScreenProvider.fetchData();
                                       homeScreenProvider.selectedSortingOption =
-                                          'Regular';
+                                          SortingOption.regular;
                                     },
                                   ),
                                 ),
@@ -110,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                                     onTap: () {
                                       homeScreenProvider.filterNike();
                                       homeScreenProvider.selectedSortingOption =
-                                          'Regular';
+                                          SortingOption.regular;
                                     },
                                   ),
                                 ),
@@ -120,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                                     onTap: () {
                                       homeScreenProvider.filterPuma();
                                       homeScreenProvider.selectedSortingOption =
-                                          'Regular';
+                                          SortingOption.regular;
                                     },
                                     child: const BrandIcon(
                                       image: 'lib/assets/images/puma-white.svg',
@@ -136,25 +138,18 @@ class HomeScreen extends StatelessWidget {
                                 padding: const EdgeInsets.only(top: 16.0),
                                 child: DropdownButton<String>(
                                   alignment: Alignment.centerRight,
-                                  value:
-                                      homeScreenProvider.selectedSortingOption,
+                                  value: homeScreenProvider.selectedSortingOption.toDisplayString(),
                                   onChanged: (newValue) {
-                                    homeScreenProvider.selectedSortingOption =
-                                        newValue!;
-                                    homeScreenProvider
-                                        .handleSortingOption(newValue);
+                                    final selectedOption = SortingOption.values.firstWhere(
+                                            (option) => option.toDisplayString() == newValue,);
+
+                                    homeScreenProvider.selectedSortingOption = selectedOption;
+                                    homeScreenProvider.handleSortingOption(selectedOption);
                                   },
-                                  items: <String>[
-                                    'Regular',
-                                    'Sort A -Z ',
-                                    'Sort Z - A ',
-                                    'Highest to Lowest price',
-                                    'Lowest to Highest price'
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
+                                  items: SortingOption.values.map<DropdownMenuItem<String>>((enumValue) {
                                     return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
+                                      value: enumValue.toDisplayString(),
+                                      child: Text(enumValue.toDisplayString()),
                                     );
                                   }).toList(),
                                 ),
