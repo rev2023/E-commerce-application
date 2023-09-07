@@ -5,8 +5,8 @@ enum SortingOption {
   sortDescendingAlphabetically,
   sortPriceDescending,
   sortPriceAscending,
-
 }
+
 extension SortingOptionExtensions on SortingOption {
   String toDisplayString() {
     switch (this) {
