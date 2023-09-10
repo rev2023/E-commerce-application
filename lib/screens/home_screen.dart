@@ -7,7 +7,6 @@ import 'package:e_commerce_application/widgets/brand_icon.dart';
 import 'package:e_commerce_application/widgets/custom_app_bar.dart';
 import 'package:e_commerce_application/widgets/product_holder.dart';
 import 'package:e_commerce_application/widgets/search_bar.dart';
-import 'package:e_commerce_application/provider/search_screen_provider.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

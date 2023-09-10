@@ -44,6 +44,7 @@ dependencies:
   auto_route: ^7.7.1
   firebase_core: ^2.15.1
   firebase_messaging: ^14.6.7
+  shared_preferences: ^2.2.1
 
 
 dev_dependencies:
