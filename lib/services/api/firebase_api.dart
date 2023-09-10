@@ -1,6 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-import '../fcm_service.dart';
+import 'package:e_commerce_application/services/fcm_service.dart';
 
 class FirebaseAPI{
 
@@ -10,7 +9,5 @@ class FirebaseAPI{
     await _firebaseMessaging.requestPermission();
     final fcmToken = await _firebaseMessaging.getToken();
     storeFCMToken(fcmToken!);
-    print(fcmToken);
-
   }
 }
