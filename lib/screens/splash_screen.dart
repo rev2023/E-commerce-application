@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
       // Check if the widget is still mounted before accessing context
       if (mounted) {
         // After the delay, navigate to the home screen
-        context.router.replace(HomeRoute());
+        context.router.replace(const AuthenticationRoute());
       }
     });
   }
