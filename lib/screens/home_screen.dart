@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
@@ -13,7 +14,7 @@ import 'package:e_commerce_application/provider/search_screen_provider.dart';
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,12 @@ class HomeScreen extends StatelessWidget {
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
-              CustomAppBar(scaffoldKey: _scaffoldKey),
+              CustomAppBar(scaffoldKey: _scaffoldKey,),
             ];
           },
           body: Column(
             children: [
-              const Padding(
+               const Padding(
                 padding: EdgeInsets.only(left: 16.0),
                 child: SizedBox(
                   height: 92,

@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:e_commerce_application/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,7 +88,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               width: 300,
               height: 45,
               child: ElevatedButton(
-                onPressed: () {user.signInWithGoogle();},
+                onPressed: () async {final account = await user.signInWithGoogle();
+                  context.router.push(HomeRoute());},
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

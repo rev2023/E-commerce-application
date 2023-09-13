@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/provider/auth_provider.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.gr.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
@@ -8,7 +10,7 @@ import 'package:provider/provider.dart';
 
 @override
   class SearchBar extends StatelessWidget {
-    const SearchBar({super.key});
+    const SearchBar({super.key,});
     @override
     Widget build(BuildContext context) {
       final isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
@@ -37,7 +39,7 @@ import 'package:provider/provider.dart';
           onSubmitted: (query){
             if(query != '') {
               searchScreenProvider.fetchData(query);
-              context.router.push(const SearchRoute());
+              context.router.push( SearchRoute());
             }
 
           },

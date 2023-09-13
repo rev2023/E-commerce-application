@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
@@ -9,23 +10,23 @@ import 'package:e_commerce_application/widgets/search_bar.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+
+  const SearchScreen({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>(); // Create GlobalKey here
-
     return Scaffold(
       drawer: const Drawer(),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
-            CustomAppBar(scaffoldKey: _scaffoldKey),
+            CustomAppBar(scaffoldKey: _scaffoldKey,),
           ];
         },
         body: Column(
           children: [
-            const Padding(
+             const Padding(
               padding: EdgeInsets.only(left: 16.0),
               child: SizedBox(
                 height: 92,

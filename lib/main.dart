@@ -1,3 +1,4 @@
+import 'package:e_commerce_application/provider/auth_provider.dart';
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.dart';
 import 'package:e_commerce_application/services/services_configuration.dart';
@@ -25,7 +26,10 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider( // Wrap your MaterialApp.router with MultiProvider
       providers: [
-        ChangeNotifierProvider(create: (context) => SearchScreenProvider()), // Provide the SearchScreenProvider
+        ChangeNotifierProvider(
+        create: (context) => AuthProvider(),),
+        ChangeNotifierProvider(create: (context) => SearchScreenProvider()),
+        // Provide the SearchScreenProvider
         // Add more providers if needed
       ],
       child: MaterialApp.router(

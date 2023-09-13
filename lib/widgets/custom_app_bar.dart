@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce_application/provider/auth_provider.dart';
 import 'package:e_commerce_application/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:e_commerce_application/styles/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
-  const CustomAppBar({required this.scaffoldKey, Key? key}) : super(key: key);
+  const CustomAppBar({required this.scaffoldKey, Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<AuthProvider>(context).user;
+
     return SliverAppBar(
       automaticallyImplyLeading: false,
       elevation: 0,
@@ -45,13 +49,12 @@ class CustomAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
+             Padding(
               padding: EdgeInsets.only(right: 16.0),
-              child: Icon(
-                Icons.person,
-                color: AppColors.primaryColor,
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(user!.displayName!) // You can use a default avatar image
               ),
-            )
+              ),
           ],
         ),
       ),
