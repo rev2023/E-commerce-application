@@ -1,14 +1,20 @@
 import 'package:e_commerce_application/provider/search_screen_provider.dart';
 import 'package:e_commerce_application/router/app_router.dart';
-import 'package:e_commerce_application/screens/splash_screen.dart';
 import 'package:e_commerce_application/services/services_configuration.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
-   setupDependencies();
-    runApp(const MyApp());
+void main() async {
+  setupDependencies();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

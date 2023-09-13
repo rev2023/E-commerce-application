@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "6118592177",
+    "project_id": "sport-up-5f954",
+    "storage_bucket": "sport-up-5f954.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6118592177:android:d79f1848eaf07c4ae31c90",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6118592177-8a14o46bkqvvqquqqu5ffoaatok0cj15.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.e_commerce_application",
+            "certificate_hash": "20f1dd232b03aef46983e154667e2b442ecd7259"
+          }
+        },
+        {
+          "client_id": "6118592177-f4t1ugeduar5n3vtc7vnued41v9p1j0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUE8jASSH1K1qM8Tge1eBnQrQXiyMLYwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6118592177-f4t1ugeduar5n3vtc7vnued41v9p1j0e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "6118592177-3konr098556bvac2uo4mb2e742vpgg9a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.eCommerceApplication"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
